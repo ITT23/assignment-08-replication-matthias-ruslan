@@ -21,21 +21,23 @@ class Mouse():
         self.pos_y = new_y_pos
 
     def move(self):
+        if sensor.has_capability('accelerometer'):
+            self.pos_x = float(sensor.get_value('accelerometer')['x'])
+            self.pos_y = float(sensor.get_value('accelerometer')['y'])
 
-        self.pos_x = float(sensor.get_value('accelerometer')['x'])
-        self.pos_y = float(sensor.get_value('accelerometer')['y'])
+            if self.pos_x > 0.3 or self.pos_x < -0.3:
+                self.pos_x *= -10
+            else:
+                self.pos_x = 0.0
+            
+            if self.pos_y > 0.3 or self.pos_y < -0.3:
+                self.pos_y *= 10
+            else:
+                self.pos_y = 0.0
 
-        if self.pos_x > 0.5 or self.pos_x < -0.5:
-            self.pos_x *= -10
+            pyautogui.moveRel(self.pos_x, self.pos_y) # scaled by 10
         else:
-            self.pos_x = 0.0
-        
-        if self.pos_y > 0.5 or self.pos_y < -0.5:
-            self.pos_y *= 10
-        else:
-            self.pos_y = 0.0
-
-        pyautogui.moveRel(self.pos_x, self.pos_y) # scaled by 10
+            raise Exception(Config.MISSING_ACCELEROMETER_EXCEPTION)
 
     def set_mouse_btn_1_state(self, new_left_btn_state):
         self.left_click = new_left_btn_state
