@@ -37,7 +37,8 @@ class Mouse():
 
             pyautogui.moveRel(self.pos_x, self.pos_y) # scaled by 10
         else:
-            raise Exception(Config.MISSING_ACCELEROMETER_EXCEPTION)
+            #raise Exception(Config.MISSING_ACCELEROMETER_EXCEPTION)
+            print(Config.MISSING_ACCELEROMETER_EXCEPTION)
 
     def set_mouse_btn_1_state(self, new_left_btn_state):
         self.left_click = new_left_btn_state

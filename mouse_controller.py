@@ -43,4 +43,4 @@ while(True):
     if keyboard.is_pressed('q'):
         mouse_controller.disconnet()
         break
-    time.sleep(0.1)
+    #time.sleep(0.1)
