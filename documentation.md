@@ -47,5 +47,6 @@ We would also like to add other features such as latency options and other funct
 via
 
 1.) Smartphone (DIPPID App)
+
 2.) M5Stack
 
