@@ -1,7 +1,10 @@
 # mouse class
 
+# package to controll mouse
 import pyautogui
+# stores strings an magic numbers
 from Config import Config
+# DIPPID functionality 
 from DIPPID import SensorUDP
 
 # use UPD (via WiFi) for communication
@@ -16,35 +19,45 @@ class Mouse():
         self.left_click:int = 0
         self.right_click:int = 0
 
-    def set_mouse_pos(self, new_x_pos, new_y_pos):
-        self.pos_x = new_x_pos
-        self.pos_y = new_y_pos
-
+    # get DIPPID accelerometer data and move mouse according to it
+    # x/y accelerometer value needs to exceed a threshold
     def move(self):
         if sensor.has_capability('accelerometer'):
             self.pos_x = float(sensor.get_value('accelerometer')['x'])
             self.pos_y = float(sensor.get_value('accelerometer')['y'])
 
-            if self.pos_x > 0.3 or self.pos_x < -0.3:
-                self.pos_x *= -10
+            if self.pos_x > Config.MOUSE_MOVEMENT_THRESHOLD_POSITIV or self.pos_x < Config.MOUSE_MOVEMENT_THRESHOLD_NEGATIVE: # threshold +/- 10
+                self.pos_x *= Config.MOUSE_MOVEMENT_SCALING_NEGATIVE # -10
             else:
                 self.pos_x = 0.0
             
-            if self.pos_y > 0.3 or self.pos_y < -0.3:
-                self.pos_y *= 10
+            if self.pos_y > Config.MOUSE_MOVEMENT_THRESHOLD_POSITIV or self.pos_y < Config.MOUSE_MOVEMENT_THRESHOLD_NEGATIVE:
+                self.pos_y *= Config.MOUSE_MOVEMENT_SCALING_POSITIV # 10
             else:
                 self.pos_y = 0.0
 
-            pyautogui.moveRel(self.pos_x, self.pos_y) # scaled by 10
+            pyautogui.moveRel(self.pos_x, self.pos_y)
         else:
-            #raise Exception(Config.MISSING_ACCELEROMETER_EXCEPTION)
             print(Config.MISSING_ACCELEROMETER_EXCEPTION)
 
-    def set_mouse_btn_1_state(self, new_left_btn_state):
-        self.left_click = new_left_btn_state
+    # trigger left mouse button if DIPPID button 1 was clicked
+    def check_for_left_click_triggered(self):
+        if sensor.has_capability('button_1'):
+            self.left_click = sensor.get_value('button_1')
+            if self.left_click == 1:
+                pyautogui.click(button="left")
+        else:
+            print(Config.MISSING_BTN_1_EXCEPTION)
     
-    def set_mouse_btn_2_state(self, new_right_btn_state):
-        self.right_click = new_right_btn_state
+    # trigger right mouse button if DIPPID button 2 was clicked
+    def check_for_right_click_triggered(self):
+        if sensor.has_capability('button_2'):
+            self.left_click = sensor.get_value('button_2')
+            if self.left_click == 1:
+                pyautogui.click(button="right")
+        else:
+            print(Config.MISSING_BTN_2_EXCEPTION)
 
+    # disconnet from sensor
     def disconnet(self):
         sensor.disconnect()
