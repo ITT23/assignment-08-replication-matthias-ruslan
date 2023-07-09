@@ -27,7 +27,8 @@ Ballagas et al. [1] developed two complementary camera-based interaction techniq
 [1] Ballagas, R., Rohs, M., & Sheridan, J. G. (2005, May). Mobile Phones as Pointing Devices. In PERMID (pp. 27-30).
 
 ## Our Motivation
-We found the idea of ​​using a smartphone to control the mouse very interesting. Especially with regard to the fact that we can implement the control using DIPPID. The study by Alex et al. is from 2005 and accordingly the options were limited. Für die Studie musste ein externer Accelerometer angebracht werden.
+
+We found the idea of ​​using a smartphone to control the mouse very interesting. Especially with regard to the fact that we can implement the control using DIPPID. The study by Alex et al. is from 2005 and accordingly the options were limited. An external bulky accelerometer had to be attached for the study. 
 
 ![handy](https://github.com/ITT23/assignment-08-replication-matthias-ruslan/assets/41992838/5aa2de5c-2158-4406-9f91-f85e31bb9d62)
 
