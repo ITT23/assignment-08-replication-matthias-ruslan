@@ -16,7 +16,18 @@ class Mouse():
         self.pos_y = new_y_pos
 
     def move(self):
-        pyautogui.moveRel(self.pos_x * Config.MOUSE_MOVEMENT_SCALING, self.pos_y * Config.MOUSE_MOVEMENT_SCALING) # scaled by 10
+
+        if self.pos_x > 0.3 or self.pos_x < -0.3:
+            self.pos_x *= -10
+        else:
+            self.pos_x = 0.0
+        
+        if self.pos_y > 0.3 or self.pos_y < -0.3:
+            self.pos_y *= 10
+        else:
+            self.pos_y = 0.0
+
+        pyautogui.moveRel(self.pos_x, self.pos_y) # scaled by 10
 
     def set_mouse_btn_1_state(self, new_left_btn_state):
         self.left_click = new_left_btn_state
