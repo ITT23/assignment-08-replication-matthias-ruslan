@@ -2,6 +2,11 @@
 
 import pyautogui
 from Config import Config
+from DIPPID import SensorUDP
+
+# use UPD (via WiFi) for communication
+PORT = 5700
+sensor = SensorUDP(PORT)
 
 class Mouse():
 
@@ -16,6 +21,8 @@ class Mouse():
         self.pos_y = new_y_pos
 
     def move(self):
+
+        self.pos_x = sensor.get_value
 
         if self.pos_x > 0.3 or self.pos_x < -0.3:
             self.pos_x *= -10
@@ -34,3 +41,6 @@ class Mouse():
     
     def set_mouse_btn_2_state(self, new_right_btn_state):
         self.right_click = new_right_btn_state
+
+    def disconnet(self):
+        sensor.disconnect()

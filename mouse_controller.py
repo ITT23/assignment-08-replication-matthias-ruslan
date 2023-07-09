@@ -1,15 +1,13 @@
 import keyboard
 
-from DIPPID import SensorUDP
+
 from classes.mouse_class import Mouse
 from Config import Config
 
-# use UPD (via WiFi) for communication
-PORT = 5700
-sensor = SensorUDP(PORT)
+
 
 mouse_controller = Mouse()
-
+'''
 def handle_accelerometer_data(data):
     if(sensor.has_capability('accelerometer')):
         mouse_controller.set_mouse_pos(data['x'], data['y'])
@@ -38,8 +36,9 @@ def handle_btn_2_data(data):
 sensor.register_callback('accelerometer', handle_accelerometer_data)
 sensor.register_callback('button_1', handle_btn_1_data)
 sensor.register_callback('button_2', handle_btn_2_data)
+'''
 
 while(True):
     if keyboard.is_pressed('q'):
-        sensor.disconnect()
+        mouse_controller.disconnet()
         break
