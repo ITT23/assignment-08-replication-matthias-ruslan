@@ -32,6 +32,20 @@ We found the idea of ​​using a smartphone to control the mouse very interest
 
 ![handy](https://github.com/ITT23/assignment-08-replication-matthias-ruslan/assets/41992838/5aa2de5c-2158-4406-9f91-f85e31bb9d62)
 
+Most smartphones in the lower price segment now have at least one integrated accelerometer. In addition, there are also sensors that provide gyroscope and angle data, among other things. The DIPPID functionality used in the course lends itself very well to expanding and implementing the approach presented in the paper. On the one hand, the data from the various sensors can be obtained and processed very easily using the DIPPID app, and on the other hand, the 3 buttons allow you to control the mouse buttons.
 
+## Our Goal
 
+We would like to implement the mouse control using variants and compare them with each other.
+
+1.) Control only via DIPED sensor data.
+2.) LSTM
+
+We would also like to add other features such as latency options and other functions.
+
+## Mouse Control
+via
+
+1.) Smartphone (DIPPID App)
+2.) M5Stack
 
