@@ -1,5 +1,5 @@
 import keyboard
-
+import time
 
 from classes.mouse_class import Mouse
 from Config import Config
@@ -39,6 +39,8 @@ sensor.register_callback('button_2', handle_btn_2_data)
 '''
 
 while(True):
+    mouse_controller.move()
     if keyboard.is_pressed('q'):
         mouse_controller.disconnet()
         break
+    time.sleep(0.1)

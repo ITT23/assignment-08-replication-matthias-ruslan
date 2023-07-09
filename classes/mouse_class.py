@@ -22,14 +22,15 @@ class Mouse():
 
     def move(self):
 
-        self.pos_x = sensor.get_value
+        self.pos_x = float(sensor.get_value('accelerometer')['x'])
+        self.pos_y = float(sensor.get_value('accelerometer')['y'])
 
-        if self.pos_x > 0.3 or self.pos_x < -0.3:
+        if self.pos_x > 0.5 or self.pos_x < -0.5:
             self.pos_x *= -10
         else:
             self.pos_x = 0.0
         
-        if self.pos_y > 0.3 or self.pos_y < -0.3:
+        if self.pos_y > 0.5 or self.pos_y < -0.5:
             self.pos_y *= 10
         else:
             self.pos_y = 0.0
