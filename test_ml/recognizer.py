@@ -10,6 +10,8 @@ from DIPPID import SensorUDP
 PORT = 5700
 sensor = SensorUDP(PORT)
 
+activities = ["top_left", "top_center", "top_right", "neutral_left", "neutral_center", "neutral_right", "bottom_left", "bottom_center", "bottom_right"]
+
 # Training-split and label encoding as seen on: https://www.datacamp.com/tutorial/svm-classification-scikit-learn-python
 
 def main():
@@ -26,7 +28,6 @@ def get_datasets():
     """get csv files and load them into a data frame"""
 
     data = pd.DataFrame()
-    activities = ["top_left", "top_center", "top_right", "neutral_left", "neutral_center", "neutral_right", "bottom_left", "bottom_center", "bottom_right"]
 
     for i in range(1, 4):
         for act in activities:
@@ -86,7 +87,6 @@ def get_accuracy(X_train, X_test, y_train, y_test):
 
 def continous_prediction(classifier, encoder):
     """continously predicts the current activity"""
-
     if sensor.has_capability('accelerometer'):
         acc_x = float(sensor.get_value('accelerometer')['x'])
         acc_y = float(sensor.get_value('accelerometer')['y'])
@@ -102,9 +102,10 @@ def continous_prediction(classifier, encoder):
     try:
         pred = classifier.predict([[acc_x, acc_y, acc_z, gyr_x, gyr_y,
                                     gyr_z]])
-        return pred
+        return activities[pred[0]]
     except:
-        print("Check if DIPPID is running and sending data.")
+        x= 0
+        #print("Check if DIPPID is running and sending data.")
 
 
 def check_for_buttonclick():

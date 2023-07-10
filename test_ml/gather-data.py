@@ -9,17 +9,17 @@ sensor = SensorUDP(PORT)
 
 capture_data = False
 start_time = 0
-label = "bottom_right"
-number = 3
+label = "top_left"
+number = 0
 
 headers = ['timestamp', 'accelerometer_x', 'accelerometer_y',
-           'accelerometer_z', 'gyroscope_x', 'gyroscope_y', 'gyroscope_z',
+           'accelerometer_z',
            'activity']
 data = []
 
 
 def save_data():
-    with open('./data/data_' + label + '_' + str(number) + '.csv', 'w',
+    with open('./data_new/data_' + label + '_' + str(number) + '.csv', 'w',
               encoding='UTF8') as f:
         writer = csv.writer(f)
 
@@ -50,11 +50,11 @@ while (True):
                 gyr_z = float(sensor.get_value('gyroscope')['z'])
 
             data.append(
-                [duration, acc_x, acc_y, acc_z, gyr_x, gyr_y, gyr_z, label])
+                [duration, acc_x, acc_y, acc_z, label])
 
-            if duration > 5:
-                save_data()
-                print("end of data collection")
-                break
+
+            save_data()
+            print("end of data collection")
+            break
 
     time.sleep(0.01)
