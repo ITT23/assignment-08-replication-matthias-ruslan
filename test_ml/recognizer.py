@@ -10,7 +10,7 @@ from DIPPID import SensorUDP
 PORT = 5700
 sensor = SensorUDP(PORT)
 
-activities = ["top_left", "top_center", "top_right", "neutral_left", "neutral_center", "neutral_right", "bottom_left", "bottom_center", "bottom_right"]
+activities = ["top_left", "top_center", "top_right"]
 
 # Training-split and label encoding as seen on: https://www.datacamp.com/tutorial/svm-classification-scikit-learn-python
 
@@ -29,9 +29,9 @@ def get_datasets():
 
     data = pd.DataFrame()
 
-    for i in range(1, 4):
+    for i in range(0, 5):
         for act in activities:
-            new_data = pd.read_csv(f'test_ml/data/data_{act}_{i}.csv')
+            new_data = pd.read_csv(f'test_ml/data_new/data_{act}_{i}.csv')
             frames = [data, new_data]
             data = pd.concat(frames)
 
@@ -54,15 +54,14 @@ def preprocess(data):
     y = encoder.transform(data['activity'])
 
     # mean removal: center values around mean
-    scaled_samples = scale(sensor_data)
-    data_mean = sensor_data.copy()
-    data_mean = scaled_samples
+    #scaled_samples = scale(sensor_data)
+    #data_mean = sensor_data.copy()
+    #data_mean = scaled_samples
 
     # normalization: map all values to a certain range
     s = MinMaxScaler()
-    s.fit(data_mean)
-    scaled_samples = s.transform(data_mean)
-    data_normalized = data_mean.copy()
+    s.fit(scale(sensor_data))
+    scaled_samples = s.transform(scale(sensor_data))
     data_normalized = scaled_samples
 
     return data_normalized, y, encoder
@@ -100,8 +99,7 @@ def continous_prediction(classifier, encoder):
 
 
     try:
-        pred = classifier.predict([[acc_x, acc_y, acc_z, gyr_x, gyr_y,
-                                    gyr_z]])
+        pred = classifier.predict([[acc_x, acc_y, acc_z]])
         return activities[pred[0]]
     except:
         x= 0

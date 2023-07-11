@@ -9,8 +9,8 @@ sensor = SensorUDP(PORT)
 
 capture_data = False
 start_time = 0
-label = "top_left"
-number = 0
+label = "top_right"
+number = 3
 
 headers = ['timestamp', 'accelerometer_x', 'accelerometer_y',
            'accelerometer_z',
@@ -52,9 +52,9 @@ while (True):
             data.append(
                 [duration, acc_x, acc_y, acc_z, label])
 
-
-            save_data()
-            print("end of data collection")
-            break
+            if duration > 10:
+                save_data()
+                print("end of data collection")
+                break
 
     time.sleep(0.01)
