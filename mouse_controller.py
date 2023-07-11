@@ -14,8 +14,10 @@ while(True):
     mouse_controller.check_for_left_click_triggered()
     # triggers right mouse button if clicked (DIPPID btn 2)
     mouse_controller.check_for_right_click_triggered()
+    mouse_controller.check_for_speed_down_triggered()
+    mouse_controller.check_for_speed_up_triggered()
     # exit DIPPID mouse movement
     if keyboard.is_pressed('q'):
-        mouse_controller.disconnet()
+        mouse_controller.disconnect()
         break
     #time.sleep(0.1)
