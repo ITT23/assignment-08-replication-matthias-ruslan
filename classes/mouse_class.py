@@ -53,6 +53,8 @@ class Mouse():
         else:
             if self.movement_scaler_neg > -50:
                 self.movement_scaler_neg -= 1
+            
+            self.check_for_gesture_feature_triggered()
      
 
     # trigger left mouse button if DIPPID button 1 was clicked
@@ -76,7 +78,17 @@ class Mouse():
     def check_for_gesture_feature_triggered(self):
         if sensor.has_capability('button_3'):
             if sensor.get_value('button_3') is 1:
-                self.gesture_recoginzer.add_point(int())
+                # Get the current mouse position
+                current_x, current_y = pyautogui.position()
+                current_x += self.blit_pos_x
+                current_y += self.blit_pos_y
+                self.gesture_recoginzer.add_point(int(current_x), int(current_y))
+
+
+            else:
+                if len(self.gesture_recoginzer.input_points) is not 0:
+                    self.gesture_recoginzer.recognize()
+                    self.gesture_recoginzer.reset_recognizer()
 
     # disconnet from sensor
     def disconnet(self):
