@@ -1,5 +1,11 @@
 # used to store magic numbers and strings
 
+# display proparties
+import tkinter
+
+# need to get the display properties
+root = tkinter.Tk()
+
 class Config:
     # error messages
     MISSING_ACCELEROMETER_EXCEPTION = "sensor has no accelerometer capability"
@@ -7,7 +13,7 @@ class Config:
     MISSING_BTN_2_EXCEPTION = "sensor has no button 2 capability"
 
     # magic numbers
-    MOUSE_MOVEMENT_SCALING_POSITIV = 10  # multiplication of the x and y accelerometer values
-    MOUSE_MOVEMENT_SCALING_NEGATIVE = -10  # multiplication of the x and y accelerometer values
+    MOUSE_MOVEMENT_SCALING = -1 * int(root.winfo_screenwidth() * 0.005) # multiplication of the x and y accelerometer values based on the screen size
+    MOUSE_MOVEMENT_SCALING_THRESHOLD = -50
     MOUSE_MOVEMENT_THRESHOLD_POSITIV = 0.3 # value that must be exceeded in order for a mouse movement to be initiated.
     MOUSE_MOVEMENT_THRESHOLD_NEGATIVE = -0.3 # value that must be fallen below in order for a mouse movement to be initiated.

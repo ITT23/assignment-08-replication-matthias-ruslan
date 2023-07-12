@@ -14,31 +14,43 @@ sensor = SensorUDP(PORT)
 class Mouse():
 
     def __init__(self):
-        self.pos_x:float = 0.0
-        self.pos_y:float = 0.0
+        self.blit_pos_x:float = 0.0
+        self.blit_pos_y:float = 0.0
         self.left_click:int = 0
         self.right_click:int = 0
+        self.movement_scaler_neg = Config.MOUSE_MOVEMENT_SCALING
+        
 
     # get DIPPID accelerometer data and move mouse according to it
     # x/y accelerometer value needs to exceed a threshold
     def move(self):
         if sensor.has_capability('accelerometer'):
-            self.pos_x = float(sensor.get_value('accelerometer')['x'])
-            self.pos_y = float(sensor.get_value('accelerometer')['y'])
+            self.blit_pos_x = float(sensor.get_value('accelerometer')['x'])
+            self.blit_pos_y = float(sensor.get_value('accelerometer')['y'])
 
-            if self.pos_x > Config.MOUSE_MOVEMENT_THRESHOLD_POSITIV or self.pos_x < Config.MOUSE_MOVEMENT_THRESHOLD_NEGATIVE: # threshold +/- 10
-                self.pos_x *= Config.MOUSE_MOVEMENT_SCALING_NEGATIVE # -10
+            if self.blit_pos_x > Config.MOUSE_MOVEMENT_THRESHOLD_POSITIV or self.blit_pos_x < Config.MOUSE_MOVEMENT_THRESHOLD_NEGATIVE: # threshold +/- 10
+                self.blit_pos_x *= self.movement_scaler_neg # display width * 0.005
             else:
-                self.pos_x = 0.0
+                self.blit_pos_x = 0.0
             
-            if self.pos_y > Config.MOUSE_MOVEMENT_THRESHOLD_POSITIV or self.pos_y < Config.MOUSE_MOVEMENT_THRESHOLD_NEGATIVE:
-                self.pos_y *= Config.MOUSE_MOVEMENT_SCALING_POSITIV # 10
+            if self.blit_pos_y > Config.MOUSE_MOVEMENT_THRESHOLD_POSITIV or self.blit_pos_y < Config.MOUSE_MOVEMENT_THRESHOLD_NEGATIVE:
+                self.blit_pos_y *= self.movement_scaler_neg # display width * 0.005
             else:
-                self.pos_y = 0.0
+                self.blit_pos_y = 0.0
 
-            pyautogui.moveRel(self.pos_x, self.pos_y)
+            pyautogui.moveRel(self.blit_pos_x, self.blit_pos_y)
+            self.adjust_cursor_speed()
         else:
             print(Config.MISSING_ACCELEROMETER_EXCEPTION)
+    
+    def adjust_cursor_speed(self):
+        if not (self.blit_pos_x > Config.MOUSE_MOVEMENT_THRESHOLD_POSITIV or self.blit_pos_x < Config.MOUSE_MOVEMENT_THRESHOLD_NEGATIVE) and not \
+                (self.blit_pos_y > Config.MOUSE_MOVEMENT_THRESHOLD_POSITIV or self.blit_pos_y < Config.MOUSE_MOVEMENT_THRESHOLD_NEGATIVE):
+                self.movement_scaler_neg = Config.MOUSE_MOVEMENT_SCALING
+        else:
+            if self.movement_scaler_neg > -50:
+                self.movement_scaler_neg -= 1
+     
 
     # trigger left mouse button if DIPPID button 1 was clicked
     def check_for_left_click_triggered(self):
