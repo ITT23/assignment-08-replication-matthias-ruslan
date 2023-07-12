@@ -7,6 +7,8 @@ from Config import Config
 # DIPPID functionality 
 from DIPPID import SensorUDP
 
+from recognizer import Recognizer
+
 # use UPD (via WiFi) for communication
 PORT = 5700
 sensor = SensorUDP(PORT)
@@ -19,6 +21,7 @@ class Mouse():
         self.left_click:int = 0
         self.right_click:int = 0
         self.movement_scaler_neg = Config.MOUSE_MOVEMENT_SCALING
+        self.gesture_recoginzer = Recognizer()
         
 
     # get DIPPID accelerometer data and move mouse according to it
@@ -28,12 +31,12 @@ class Mouse():
             self.blit_pos_x = float(sensor.get_value('accelerometer')['x'])
             self.blit_pos_y = float(sensor.get_value('accelerometer')['y'])
 
-            if self.blit_pos_x > Config.MOUSE_MOVEMENT_THRESHOLD_POSITIV or self.blit_pos_x < Config.MOUSE_MOVEMENT_THRESHOLD_NEGATIVE: # threshold +/- 10
+            if self.blit_pos_x > Config.MOUSE_MOVEMENT_THRESHOLD_POSITIV or self.blit_pos_x < Config.MOUSE_MOVEMENT_THRESHOLD_NEGATIVE: # threshold +/- 0.3
                 self.blit_pos_x *= self.movement_scaler_neg # display width * 0.005
             else:
                 self.blit_pos_x = 0.0
             
-            if self.blit_pos_y > Config.MOUSE_MOVEMENT_THRESHOLD_POSITIV or self.blit_pos_y < Config.MOUSE_MOVEMENT_THRESHOLD_NEGATIVE:
+            if self.blit_pos_y > Config.MOUSE_MOVEMENT_THRESHOLD_POSITIV or self.blit_pos_y < Config.MOUSE_MOVEMENT_THRESHOLD_NEGATIVE: # threshold +/- 0.3
                 self.blit_pos_y *= self.movement_scaler_neg # display width * 0.005
             else:
                 self.blit_pos_y = 0.0
@@ -69,6 +72,11 @@ class Mouse():
                 pyautogui.click(button="right")
         else:
             print(Config.MISSING_BTN_2_EXCEPTION)
+
+    def check_for_gesture_feature_triggered(self):
+        if sensor.has_capability('button_3'):
+            if sensor.get_value('button_3') is 1:
+                self.gesture_recoginzer.add_point(int())
 
     # disconnet from sensor
     def disconnet(self):
