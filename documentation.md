@@ -44,9 +44,17 @@ We would like to implement the mouse control using variants and compare them wit
 We would also like to add other features such as latency options and other functions.
 
 ## Mouse Control
-via
 
-1.) Smartphone (DIPPID App)
+Can be used via Smartphone or M5Stack 
 
-2.) M5Stack
+1) You can tilt the device in both axes to move the mouse correspondingly
+2) Use button_1 to simulate a left mouse click
+3) Use button_2 to simulate a right mouse click
 
+## Gestures
+
+To start recording a gesture hold button_3. The gestures are performed by "drawing" one of the predefined symbols with the mouse anywhere on the screen.
+
+### Application Launcher
+
+Similiar to a previous assignment, in a file called application.txt, paths to specific applications can be added. The name of the gesture in front of a path represent the corresponding gesture that launches the file. These gestures can also be changed if needed. It's important that the name of the gesture corresponds to a defined gesture in the file called gestures_enum.py. 
