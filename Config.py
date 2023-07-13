@@ -2,6 +2,7 @@
 
 # display proparties
 import tkinter
+from os import path
 
 # need to get the display properties
 root = tkinter.Tk()
@@ -20,3 +21,5 @@ class Config:
     MOUSE_MOVEMENT_SCALING_THRESHOLD = -50
     MOUSE_MOVEMENT_THRESHOLD_POSITIV = 0.3 # value that must be exceeded in order for a mouse movement to be initiated.
     MOUSE_MOVEMENT_THRESHOLD_NEGATIVE = -0.3 # value that must be fallen below in order for a mouse movement to be initiated.
+
+    SCREENSHOT_FOLDER_PATH = path.join(path.dirname(__file__), "screenshots\\")

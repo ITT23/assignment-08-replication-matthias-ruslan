@@ -98,7 +98,9 @@ class MouseController():
     def init_gesture_feature(self):
         self.gesture_recoginzer.recognize()
 
-        if self.gesture_recoginzer.get_matching_template() == Gesture.V:
+        if self.gesture_recoginzer.get_matching_template() == Gesture.V.value:
+            self.screenshot_feature.take_and_save_screenshot()
+        elif self.gesture_recoginzer.get_matching_template() == Gesture.CHECK.value:
             self.screenshot_feature.take_screenshot()
 
         self.gesture_recoginzer.reset_recognizer()
