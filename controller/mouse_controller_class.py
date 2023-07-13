@@ -100,6 +100,7 @@ class MouseController():
 
         if self.gesture_recoginzer.get_matching_template() == Gesture.V.value:
             self.screenshot_feature.take_and_save_screenshot()
+            
         elif self.gesture_recoginzer.get_matching_template() == Gesture.CHECK.value:
             self.screenshot_feature.take_screenshot()
 
