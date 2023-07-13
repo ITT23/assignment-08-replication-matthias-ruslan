@@ -2,7 +2,6 @@
 
 import pyautogui
 import uuid
-
 from PIL import Image
 from Config import Config
 from pyautogui import press
@@ -15,7 +14,7 @@ class ScreenshotFeature():
 
     # takes screenshot and saves it in the screenshot folder
     def take_and_save_screenshot(self):
-        save_path = Config.SCREENSHOT_FOLDER_PATH + f"screenshot_{uuid.uuid4}.png"
+        save_path = Config.SCREENSHOT_FOLDER_PATH + f"screenshot_{uuid.uuid4()}.png"
         self.screenshot = pyautogui.screenshot(save_path)
 
     # just takes the screenshot (imitates the screenshot buttons "alt + print")
