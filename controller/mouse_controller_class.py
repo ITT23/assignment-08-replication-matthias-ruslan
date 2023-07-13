@@ -7,13 +7,18 @@ from Config import Config
 # DIPPID functionality 
 from DIPPID import SensorUDP
 
-from recognizer import Recognizer
+# gesture recognizer class
+from helper_classes.recognizer_class import Recognizer
+# screenshot feature class
+from helper_classes.screenshot_class import ScreenshotFeature
+from enums.gestures_enum import Gesture
+
 
 # use UPD (via WiFi) for communication
 PORT = 5700
 sensor = SensorUDP(PORT)
 
-class Mouse():
+class MouseController():
 
     def __init__(self):
         self.blit_pos_x:float = 0.0
@@ -22,11 +27,12 @@ class Mouse():
         self.right_click:int = 0
         self.movement_scaler_neg = Config.MOUSE_MOVEMENT_SCALING
         self.gesture_recoginzer = Recognizer()
+        self.screenshot_feature = ScreenshotFeature()
         
 
     # get DIPPID accelerometer data and move mouse according to it
     # x/y accelerometer value needs to exceed a threshold
-    def move(self):
+    def check_for_movement(self):
         if sensor.has_capability('accelerometer'):
             self.blit_pos_x = float(sensor.get_value('accelerometer')['x'])
             self.blit_pos_y = float(sensor.get_value('accelerometer')['y'])
@@ -87,8 +93,15 @@ class Mouse():
 
             else:
                 if len(self.gesture_recoginzer.input_points) is not 0:
-                    self.gesture_recoginzer.recognize()
-                    self.gesture_recoginzer.reset_recognizer()
+                    self.init_gesture_feature()
+
+    def init_gesture_feature(self):
+        self.gesture_recoginzer.recognize()
+
+        if self.gesture_recoginzer.get_matching_template() == Gesture.V:
+            self.screenshot_feature.take_screenshot()
+
+        self.gesture_recoginzer.reset_recognizer()
 
     # disconnet from sensor
     def disconnet(self):

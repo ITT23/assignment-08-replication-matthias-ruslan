@@ -1,15 +1,15 @@
 import keyboard
 import time
 
-from classes.mouse_class import Mouse
+from controller.mouse_controller_class import MouseController
 
 # mouse controller class
 # controlls mouse movement and mouse buttons
-mouse_controller = Mouse()
+mouse_controller = MouseController()
 
 while(True):
     # moves the mouse (DIPPID acceleromter)
-    mouse_controller.move()
+    mouse_controller.check_for_movement()
     # triggers left mouse button if clicked (DIPPID btn 1)
     mouse_controller.check_for_left_click_triggered()
     # triggers right mouse button if clicked (DIPPID btn 2)
