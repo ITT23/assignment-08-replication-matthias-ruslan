@@ -1,3 +1,5 @@
+# one-dollar-recognizer gesture templates
+
 from helper_classes.point_class import Point
 
 one_dollar_gesture_templates:dict = {

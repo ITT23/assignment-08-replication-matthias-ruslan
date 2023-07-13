@@ -13,6 +13,7 @@ class Config:
     MISSING_BTN_1_EXCEPTION = "sensor has no button 1 capability"
     MISSING_BTN_2_EXCEPTION = "sensor has no button 2 capability"
 
+    # Display size
     DISPLAY_HEIGHT = root.winfo_screenheight()
     DISPLAY_WIDHT = root.winfo_screenwidth()
 
@@ -22,4 +23,5 @@ class Config:
     MOUSE_MOVEMENT_THRESHOLD_POSITIV = 0.3 # value that must be exceeded in order for a mouse movement to be initiated.
     MOUSE_MOVEMENT_THRESHOLD_NEGATIVE = -0.3 # value that must be fallen below in order for a mouse movement to be initiated.
 
+    # path for the folder the screenshots are saved at
     SCREENSHOT_FOLDER_PATH = path.join(path.dirname(__file__), "screenshots\\")
