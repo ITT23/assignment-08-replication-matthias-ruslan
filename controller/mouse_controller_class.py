@@ -13,26 +13,29 @@ from helper_classes.recognizer_class import Recognizer
 from helper_classes.screenshot_class import ScreenshotFeature
 # arrow navigation feature
 from helper_classes.arrow_navigation_class import ArrowNavigation
+# application launcher feature
+from helper_classes.applicationsLauncher_class import ApplicationLauncher
 
 # enums
-from enums.gestures_enum import Gesture # for the one-dollar-recognizer gestures
-from enums.arrow_navigation_enum import ArrowKeys # up, down, left and right
-
+from enums.gestures_enum import \
+    Gesture  # for the one-dollar-recognizer gestures
+from enums.arrow_navigation_enum import ArrowKeys  # up, down, left and right
 
 # use UPD (via WiFi) for communication
 PORT = 5700
 sensor = SensorUDP(PORT)
 
+
 class MouseController():
 
     def __init__(self):
         # values ​​that are added to / subtracted from the current position of the x / y coordinates based on the accelerometer data
-        self.blit_pos_x:float = 0.0
-        self.blit_pos_y:float = 0.0
+        self.blit_pos_x: float = 0.0
+        self.blit_pos_y: float = 0.0
         # left and right mouse button
-         # 0 = not pressed / released; 1 = pressed
-        self.left_click:int = 0 
-        self.right_click:int = 0
+        # 0 = not pressed / released; 1 = pressed
+        self.left_click: int = 0
+        self.right_click: int = 0
         # value by which to multiply the x and y blit values
         self.movement_scaler_neg = Config.MOUSE_MOVEMENT_SCALING
         # one-dollar-gesture-recognizer
@@ -41,14 +44,13 @@ class MouseController():
         self.screenshot_feature = ScreenshotFeature()
         # class for the arrow navigation functionalities
         self.arrow_nav_feature = ArrowNavigation()
-        
+        # class for the application launcher functionalities
+        self.application_launcher_feature = ApplicationLauncher()
 
-    
-    
     # move cursor based on the accelerometer data 
-        # to move a certain threshold needs to be passed
-        # cursor speed is to be increased continuously up to a certain value during movement and reset again when stationary.
-        # If button 4 is pressed, this method also uses the accelerometer data to determine which arrow navigation should take place (up, down, left or right arrow key).
+    # to move a certain threshold needs to be passed
+    # cursor speed is to be increased continuously up to a certain value during movement and reset again when stationary.
+    # If button 4 is pressed, this method also uses the accelerometer data to determine which arrow navigation should take place (up, down, left or right arrow key).
     def check_for_movement(self):
         if sensor.has_capability('accelerometer'):
             # get DIPPID accelerometer data
@@ -56,8 +58,8 @@ class MouseController():
             self.blit_pos_y = float(sensor.get_value('accelerometer')['y'])
 
             # x accelerometer value needs to exceed a threshold
-            if self.blit_pos_x > Config.MOUSE_MOVEMENT_THRESHOLD_POSITIV or self.blit_pos_x < Config.MOUSE_MOVEMENT_THRESHOLD_NEGATIVE: # threshold +/- 0.3
-                self.blit_pos_x *= self.movement_scaler_neg # scale value -> display width * 0.005
+            if self.blit_pos_x > Config.MOUSE_MOVEMENT_THRESHOLD_POSITIV or self.blit_pos_x < Config.MOUSE_MOVEMENT_THRESHOLD_NEGATIVE:  # threshold +/- 0.3
+                self.blit_pos_x *= self.movement_scaler_neg  # scale value -> display width * 0.005
 
                 # check in the further process whether button 4 is pressed. If yes, inform whether it is an left or right arrow navigation depending on the x blit value.
                 if self.blit_pos_x < 0:
@@ -67,10 +69,10 @@ class MouseController():
             else:
                 # mouse cursor should not move because threshold was not passed
                 self.blit_pos_x = 0.0
-            
+
             # y accelerometer value needs to exceed a threshold
-            if self.blit_pos_y > Config.MOUSE_MOVEMENT_THRESHOLD_POSITIV or self.blit_pos_y < Config.MOUSE_MOVEMENT_THRESHOLD_NEGATIVE: # threshold +/- 0.3
-                self.blit_pos_y *= self.movement_scaler_neg # display width * 0.005
+            if self.blit_pos_y > Config.MOUSE_MOVEMENT_THRESHOLD_POSITIV or self.blit_pos_y < Config.MOUSE_MOVEMENT_THRESHOLD_NEGATIVE:  # threshold +/- 0.3
+                self.blit_pos_y *= self.movement_scaler_neg  # display width * 0.005
 
                 # check in the further process whether button 4 is pressed. If yes, inform whether it is an up or down arrow navigation depending on the y blit value.
                 if self.blit_pos_y < 0:
@@ -88,24 +90,25 @@ class MouseController():
         else:
             # inform the user that the sensor is missing the accelerometer capability
             print(Config.MISSING_ACCELEROMETER_EXCEPTION)
-    
+
     # cursor speed is to be increased continuously up to a certain value during movement and reset again when stationary.
     def adjust_cursor_speed(self):
         # if cursor hasn't moved
-        if not (self.blit_pos_x > Config.MOUSE_MOVEMENT_THRESHOLD_POSITIV or self.blit_pos_x < Config.MOUSE_MOVEMENT_THRESHOLD_NEGATIVE) and not \
-                (self.blit_pos_y > Config.MOUSE_MOVEMENT_THRESHOLD_POSITIV or self.blit_pos_y < Config.MOUSE_MOVEMENT_THRESHOLD_NEGATIVE):
-                # reset scaler
-                self.movement_scaler_neg = Config.MOUSE_MOVEMENT_SCALING
+        if not (
+                self.blit_pos_x > Config.MOUSE_MOVEMENT_THRESHOLD_POSITIV or self.blit_pos_x < Config.MOUSE_MOVEMENT_THRESHOLD_NEGATIVE) and not \
+                (
+                        self.blit_pos_y > Config.MOUSE_MOVEMENT_THRESHOLD_POSITIV or self.blit_pos_y < Config.MOUSE_MOVEMENT_THRESHOLD_NEGATIVE):
+            # reset scaler
+            self.movement_scaler_neg = Config.MOUSE_MOVEMENT_SCALING
         else:
             # increase scaler
-            if self.movement_scaler_neg > Config.MOUSE_MOVEMENT_SCALING_THRESHOLD: # scaler limit is -50
+            if self.movement_scaler_neg > Config.MOUSE_MOVEMENT_SCALING_THRESHOLD:  # scaler limit is -50
                 self.movement_scaler_neg -= 1
 
             # check if button 3 is pressed. If yes, initiate gesture recognition
-                # With gesture recognition, the x / y coordinates are recorded. 
-                # Since you don't want this to happen while the cursor is still, this is the best place for the check process.
+            # With gesture recognition, the x / y coordinates are recorded.
+            # Since you don't want this to happen while the cursor is still, this is the best place for the check process.
             self.check_for_gesture_feature_triggered()
-     
 
     # trigger left mouse button if DIPPID button 1 was clicked
     def check_for_left_click_triggered(self):
@@ -115,7 +118,7 @@ class MouseController():
                 pyautogui.click(button="left")
         else:
             print(Config.MISSING_BTN_1_EXCEPTION)
-    
+
     # trigger right mouse button if DIPPID button 2 was clicked
     def check_for_right_click_triggered(self):
         if sensor.has_capability('button_2'):
@@ -126,7 +129,8 @@ class MouseController():
             print(Config.MISSING_BTN_2_EXCEPTION)
 
     # arrow navigation using mouse cursor
-    def check_for_arrow_navigation_triggered(self, nav_direction:ArrowNavigation): # passing the arrow navigation direction when moving the cursor
+    def check_for_arrow_navigation_triggered(self,
+                                             nav_direction: ArrowNavigation):  # passing the arrow navigation direction when moving the cursor
         # arrow navigation only if "button_4" capability is present 
         if sensor.has_capability('button_4'):
             # and button 4 is pressed/held.
@@ -151,7 +155,8 @@ class MouseController():
                 current_x += self.blit_pos_x
                 current_y += self.blit_pos_y
                 # save point in the recognizer
-                self.gesture_recoginzer.add_point(int(current_x), int(current_y))
+                self.gesture_recoginzer.add_point(int(current_x),
+                                                  int(current_y))
             # if button 3 released -> start the gesture recogniton process
             else:
                 # avoid unnecessary recognition process
@@ -163,14 +168,17 @@ class MouseController():
         # result of the gesture recognition
         self.gesture_recoginzer.recognize()
 
-        # SCREENSHOT FEATURE
+        matched_template = self.gesture_recoginzer.get_matching_template()
+
+        if not(self.application_launcher_feature.init_application(matched_template)):
+            # SCREENSHOT FEATURE
             # gesture "v" -> take screenshot and save it in the screenshot folder
-        if self.gesture_recoginzer.get_matching_template() == Gesture.V.value: 
-            self.screenshot_feature.take_and_save_screenshot()
-    
-            # gesture "check" -> take the screenshot and save it to the clipboard
-        elif self.gesture_recoginzer.get_matching_template() == Gesture.CHECK.value: 
-            self.screenshot_feature.take_screenshot()
+            if matched_template == Gesture.V.value:
+                self.screenshot_feature.take_and_save_screenshot()
+
+                # gesture "check" -> take the screenshot and save it to the clipboard
+            elif matched_template == Gesture.CHECK.value:
+                self.screenshot_feature.take_screenshot()
 
         # reset recognizer
         self.gesture_recoginzer.reset_recognizer()
