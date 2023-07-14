@@ -25,7 +25,7 @@ class ApplicationLauncher:
     def init_application(self, gesture):
         for i in range(0, len(self.applicationPaths)):
             if gesture == self.applicationPaths[i]["gestureName"]:
-                subprocess.call([self.applicationPaths[i]["path"]])
+                subprocess.Popen([self.applicationPaths[i]["path"]])
                 return True
 
         return False
