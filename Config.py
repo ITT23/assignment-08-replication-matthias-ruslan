@@ -30,3 +30,6 @@ class Config:
 
     # path for the application paths
     APPLICATIONS_PATH = path.join(path.dirname(__file__), "applications.txt")
+
+    CREATION_MODE = False
+    NEW_CREATED_GESTURE_NAME = 'N'
