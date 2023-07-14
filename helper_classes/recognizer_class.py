@@ -13,6 +13,7 @@
 import math
 import time
 
+
 # point class for the x and y coordinates of a point of a gesture
 from helper_classes.point_class import Point
 # predefined gesture templates as a dictionary
@@ -95,6 +96,7 @@ class Recognizer():
         inference_time_start = time.time()
         # adjusts the input points for the recognition process
         points = adjust_input_data(input_points, self.size, self.origin)
+
         b = math.inf
         matching_template:dict = None
         for key, value in self.templates_dict.items():
@@ -125,12 +127,24 @@ def load_templates(templates_dict:dict, size, origin):
 
 # adjusts the input points for the recognition process
 def adjust_input_data(points:list[Point], square_size, origin):
+    x_min = min(point.x for point in points)
+    x_max = max(point.x for point in points)
+    y_min = min(point.y for point in points)
+    y_max = max(point.y for point in points)
+
+    points = [normalize_point(point, x_min, x_max, y_min, y_max, square_size) for point in points]
     points = resample(points)
     radians = get_indicative_angle(points)
     points = rotate_by(points, radians)
     points = scale_to(points, square_size)
     points = translate_to(points, origin)
     return points
+
+def normalize_point(point, x_min, x_max, y_min, y_max, size):
+    normalized_x = (point.x - x_min) * (size / (x_max - x_min))
+    normalized_y = (point.y - y_min) * (size / (y_max - y_min))
+    return Point(normalized_x, normalized_y)
+
 
 # resample a points path into n evenly spaced points
 def resample(points:list[Point], n=N):
