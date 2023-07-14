@@ -13,10 +13,12 @@
 import math
 import time
 
+
 # point class for the x and y coordinates of a point of a gesture
 from helper_classes.point_class import Point
 # predefined gesture templates as a dictionary
 from data.gesture_templates_dict import one_dollar_gesture_templates
+from Config import Config
 
 # golden ratio - phi
 # need to calculate the distance at the best angle
@@ -55,6 +57,7 @@ class Recognizer():
         self.inference_time = ""
         self.templates_dict:dict = load_templates(dollar_templates, self.size, self.origin)
         self.input_points:list[Point] = []
+        self.creation_mode = Config.CREATION_MODE
 
     # get result: matching template
     def get_matching_template(self):
@@ -94,22 +97,31 @@ class Recognizer():
 
         inference_time_start = time.time()
         # adjusts the input points for the recognition process
-        points = adjust_input_data(input_points, self.size, self.origin)
-        b = math.inf
-        matching_template:dict = None
-        for key, value in self.templates_dict.items():
-            distance = distance_at_best_angle(points, value, -self.angle, self.angle, self.threshold)
-            if distance < b:
-                b = distance
-                matching_template = key
-        template_score = 1 - b / (0.5 * math.sqrt(self.size ** 2 + self.size ** 2))
-        # print results
-        print(matching_template)
-        print(template_score)
+        points = adjust_input_data(input_points, self.size, self.origin, Config.CREATION_MODE)
 
-        self.matching_template = matching_template
-        self.score = str(round(template_score, 2))
-        self.inference_time = get_inference_time(inference_time_start)
+        if self.creation_mode:
+            with open('custom_templates.txt', 'w') as f:
+                stringified_points = [str(point) for point in points]
+                stringified_points_combined = ", ".join(stringified_points)
+                f.write("\n")
+                f.write("\'" + Config.NEW_CREATED_GESTURE_NAME + "\'" + ": " + f"[{stringified_points_combined}]")
+                f.close()
+        else:
+            b = math.inf
+            matching_template:dict = None
+            for key, value in self.templates_dict.items():
+                distance = distance_at_best_angle(points, value, -self.angle, self.angle, self.threshold)
+                if distance < b:
+                    b = distance
+                    matching_template = key
+            template_score = 1 - b / (0.5 * math.sqrt(self.size ** 2 + self.size ** 2))
+            # print results
+            print(matching_template)
+            print(template_score)
+
+            self.matching_template = matching_template
+            self.score = str(round(template_score, 2))
+            self.inference_time = get_inference_time(inference_time_start)
     
 # loads, adjusts and returns predefined templates for the further recognition process
 def load_templates(templates_dict:dict, size, origin):
@@ -124,13 +136,28 @@ def load_templates(templates_dict:dict, size, origin):
     return adjusted_templates
 
 # adjusts the input points for the recognition process
-def adjust_input_data(points:list[Point], square_size, origin):
-    points = resample(points)
-    radians = get_indicative_angle(points)
-    points = rotate_by(points, radians)
-    points = scale_to(points, square_size)
-    points = translate_to(points, origin)
-    return points
+def adjust_input_data(points:list[Point], square_size, origin, is_creation):
+    x_min = min(point.x for point in points)
+    x_max = max(point.x for point in points)
+    y_min = min(point.y for point in points)
+    y_max = max(point.y for point in points)
+
+    points = [normalize_point(point, x_min, x_max, y_min, y_max, square_size) for point in points]
+    if is_creation:
+        return points
+    else:
+        points = resample(points)
+        radians = get_indicative_angle(points)
+        points = rotate_by(points, radians)
+        points = scale_to(points, square_size)
+        points = translate_to(points, origin)
+        return points
+
+def normalize_point(point, x_min, x_max, y_min, y_max, size):
+    normalized_x = (point.x - x_min) * (size / (x_max - x_min))
+    normalized_y = (point.y - y_min) * (size / (y_max - y_min))
+    return Point(normalized_x, normalized_y)
+
 
 # resample a points path into n evenly spaced points
 def resample(points:list[Point], n=N):
