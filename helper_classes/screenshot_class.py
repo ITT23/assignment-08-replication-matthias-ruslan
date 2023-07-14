@@ -6,7 +6,6 @@ from PIL import Image
 from Config import Config
 from pyautogui import press
 
-
 class ScreenshotFeature():
 
     def __init__(self):

@@ -15,6 +15,8 @@ from helper_classes.screenshot_class import ScreenshotFeature
 from helper_classes.arrow_navigation_class import ArrowNavigation
 # application launcher feature
 from helper_classes.applicationsLauncher_class import ApplicationLauncher
+# keyboard feature
+from helper_classes.virtual_keyboard_class import VirtualKeyboard
 
 # enums
 from enums.gestures_enum import \
@@ -46,12 +48,15 @@ class MouseController():
         self.arrow_nav_feature = ArrowNavigation()
         # class for the application launcher functionalities
         self.application_launcher_feature = ApplicationLauncher()
+        # class for virtual keyboard functionalities
+        self.virtual_keyboard_feature = VirtualKeyboard()
+        self.windowVisibility = True
 
     # move cursor based on the accelerometer data 
     # to move a certain threshold needs to be passed
     # cursor speed is to be increased continuously up to a certain value during movement and reset again when stationary.
     # If button 4 is pressed, this method also uses the accelerometer data to determine which arrow navigation should take place (up, down, left or right arrow key).
-    def check_for_movement(self):
+    def check_for_movement(self, dx):
         if sensor.has_capability('accelerometer'):
             # get DIPPID accelerometer data
             self.blit_pos_x = float(sensor.get_value('accelerometer')['x'])
@@ -111,7 +116,7 @@ class MouseController():
             self.check_for_gesture_feature_triggered()
 
     # trigger left mouse button if DIPPID button 1 was clicked
-    def check_for_left_click_triggered(self):
+    def check_for_left_click_triggered(self, dx):
         if sensor.has_capability('button_1'):
             self.left_click = sensor.get_value('button_1')
             if self.left_click == 1:
@@ -120,13 +125,21 @@ class MouseController():
             print(Config.MISSING_BTN_1_EXCEPTION)
 
     # trigger right mouse button if DIPPID button 2 was clicked
-    def check_for_right_click_triggered(self):
+    def check_for_right_click_triggered(self, dx):
         if sensor.has_capability('button_2'):
             self.left_click = sensor.get_value('button_2')
             if self.left_click == 1:
                 pyautogui.click(button="right")
         else:
             print(Config.MISSING_BTN_2_EXCEPTION)
+
+    def check_for_keyboard_triggered(self, dx, window):
+        if sensor.has_capability('button_3') and sensor.has_capability('button_4'):
+            button3_click = sensor.get_value('button_3')
+            button4_click = sensor.get_value('button_4')
+            if button3_click and button4_click:
+                window.set_visible(not self.windowVisibility)
+                self.windowVisibility = not self.windowVisibility
 
     # arrow navigation using mouse cursor
     def check_for_arrow_navigation_triggered(self,
@@ -160,7 +173,7 @@ class MouseController():
             # if button 3 released -> start the gesture recogniton process
             else:
                 # avoid unnecessary recognition process
-                if len(self.gesture_recoginzer.input_points) is not 0:
+                if len(self.gesture_recoginzer.input_points) > 10:
                     self.init_gesture_feature()
 
     # features based on the recognized gesture

@@ -30,6 +30,12 @@ class Config:
 
     # path for the application paths
     APPLICATIONS_PATH = path.join(path.dirname(__file__), "applications.txt")
-
+    
+    # Keyboard sizing
+    KEYBOARD_WIDTH = 600
+    KEYBOARD_HEIGHT = 400
+    
+    # Optional creation mode
     CREATION_MODE = False
     NEW_CREATED_GESTURE_NAME = 'N'
+    
