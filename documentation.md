@@ -50,6 +50,11 @@ Can be used via Smartphone or M5Stack
 
 In theory, any device that can be lifted/rotated/moved, equipped with an accelerometer sensor and compatible with the DIPPID application can be used for interaction.
 
+### Mouse Movement
+
+![Unbenannt](https://github.com/ITT23/assignment-08-replication-matthias-ruslan/assets/41992838/14d20f11-f1e3-41c5-821c-0d87d1fc612c)
+
+
 
 ## Gestures
 
