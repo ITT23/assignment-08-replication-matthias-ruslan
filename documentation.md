@@ -73,6 +73,14 @@ During the movement of the cursor, the speed is further increased gradually up t
 
 ![dd](https://github.com/ITT23/assignment-08-replication-matthias-ruslan/assets/41992838/c5979707-fafb-4ac1-bd27-1f83187ca0d1)
 
+## Method
+
+**For the implementation, we initially tried two approaches:**
+
+1. Control based on raw accelerometer data: In this approach, the cursor's direction and speed were determined based on the values obtained from the accelerometer.
+
+2. LSTM (Long Short-Term Memory): In this approach, the trained model was fed with accelerometer data, and it made predictions about the direction of movement.
+
 ### Mouse Buttons
 
 The control of the left and right mouse buttons is done using Button 1 and Button 2 of the DIPPID application, respectively.
