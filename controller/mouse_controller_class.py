@@ -36,6 +36,7 @@ class MouseController():
         # 0 = not pressed / released; 1 = pressed
         self.left_click: int = 0
         self.right_click: int = 0
+        self.mouse_down_left:bool = False
         # value by which to multiply the x and y blit values
         self.movement_scaler_neg = Config.MOUSE_MOVEMENT_SCALING
         # one-dollar-gesture-recognizer
@@ -114,19 +115,36 @@ class MouseController():
     def check_for_left_click_triggered(self):
         if sensor.has_capability('button_1'):
             self.left_click = sensor.get_value('button_1')
-            if self.left_click == 1:
-                pyautogui.click(button="left")
+            if self.left_click is 1:
+                #pyautogui.click(button="left")
+                if self.mouse_down_left is False:
+                    pyautogui.mouseDown(button='left')
+                    self.mouse_down_left = True
+                self.check_for_copy_paste_triggered()
+            else:
+                pyautogui.mouseUp(button='left')
+                self.mouse_down_left = False
         else:
             print(Config.MISSING_BTN_1_EXCEPTION)
 
     # trigger right mouse button if DIPPID button 2 was clicked
     def check_for_right_click_triggered(self):
         if sensor.has_capability('button_2'):
-            self.left_click = sensor.get_value('button_2')
-            if self.left_click == 1:
+            self.right_click = sensor.get_value('button_2')
+            
+            if self.right_click is 1 and self.left_click is 0:
                 pyautogui.click(button="right")
+
         else:
             print(Config.MISSING_BTN_2_EXCEPTION)
+
+    def check_for_copy_paste_triggered(self):
+        if sensor.has_capability('button_2') and sensor.has_capability('button_3'):
+            if self.right_click is 1:
+                pyautogui.hotkey('ctrl', 'c')
+            elif sensor.get_value('button_3') is 1:
+                pyautogui.hotkey('ctrl', 'v')
+
 
     # arrow navigation using mouse cursor
     def check_for_arrow_navigation_triggered(self,
@@ -157,6 +175,7 @@ class MouseController():
                 # save point in the recognizer
                 self.gesture_recoginzer.add_point(int(current_x),
                                                   int(current_y))
+                
             # if button 3 released -> start the gesture recogniton process
             else:
                 # avoid unnecessary recognition process
@@ -186,3 +205,5 @@ class MouseController():
     # disconnet from sensor
     def disconnet(self):
         sensor.disconnect()
+
+
