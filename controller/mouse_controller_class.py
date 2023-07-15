@@ -113,7 +113,6 @@ class MouseController():
         if sensor.has_capability('button_1'):
             self.left_click = sensor.get_value('button_1')
             if self.left_click == 1:
-                #pyautogui.click(button="left")
                 if self.mouse_down_left is False:
                     pyautogui.mouseDown(button='left')
                     self.mouse_down_left = True
@@ -130,10 +129,13 @@ class MouseController():
             if self.right_click == 1 and self.left_click == 0:
                 pyautogui.click(button="right")
 
+    # copy/paste feature
     def check_for_copy_paste_triggered(self):
         if sensor.has_capability('button_2') and sensor.has_capability('button_3'):
+            # COPY: button 1 + button 2 (holding left and right mouse button)
             if self.right_click == 1:
                 pyautogui.hotkey('ctrl', 'c')
+            # PASTE: button 1 + button 3
             elif sensor.get_value('button_3') == 1:
                 pyautogui.hotkey('ctrl', 'v')
 
