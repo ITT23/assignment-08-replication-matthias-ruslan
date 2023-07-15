@@ -48,7 +48,7 @@ Can be used via Smartphone or M5Stack
 
 ![geräte](https://github.com/ITT23/assignment-08-replication-matthias-ruslan/assets/41992838/62df0ea1-12a6-43a3-b5f2-ed0c27cd5c6b)
 
-In theory, any device that can be lifted/rotated/moved, equipped with an accelerometer sensor and compatible with the DIPPID application can be used for operation.
+In theory, any device that can be lifted/rotated/moved, equipped with an accelerometer sensor and compatible with the DIPPID application can be used for interaction.
 
 
 ## Gestures
