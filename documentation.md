@@ -83,23 +83,37 @@ For the implementation, we initially tried two approaches:
 
 For this task, we initially divided ourselves and each experimented with a different approach. Surprisingly, the control based solely on accelerometer data worked remarkably well compared to the LSTM model variant. While the predictions in the LSTM variant were often incorrect initially, they improved as we increased the size of the training dataset. With a sufficiently large training dataset, we could expect the predictions to be very reliable. However, we decided against this approach because the control based solely on accelerometer data performed exceptionally well. A well-trained LSTM model would be expected to perform just as well as the control based solely on accelerometer data, but it would involve an additional processing step that would ultimately lead to the same result. There would still be a risk of misinterpreting certain values, which would not happen with the control based solely on accelerometer data.
 
-### Mouse Buttons
+## Mouse Buttons
 
 The control of the left and right mouse buttons is done using Button 1 and Button 2 of the DIPPID application, respectively.
 
+## Features
 
+For the features, we use the accelerometer data (x and y) as well as the 4 DIPPID buttons and the one-dollar-recognizer for features with gesture recognition. 
+Only the interaction device and the DIPPID application are used for all features. 
 
+We have implemented the following features:
 
+### Screenshot
 
+### Application Launcer
+Similiar to a previous assignment, in a file called application.txt, paths to specific applications can be added. The name of the gesture in front of a path represent the corresponding gesture that launches the file. These gestures can also be changed if needed. It's important that the name of the gesture corresponds to a defined gesture in the file called gestures_enum.py.
 
+### Arrow-Key-Navigation 
 
-## Gestures
+### Copy-Paste 
 
-To start recording a gesture hold button_3. The gestures are performed by "drawing" one of the predefined symbols with the mouse anywhere on the screen.
+### Virtuell Keyboard
+
+### Costum Gestures
+
+## Start Application
+
+mouse_app.py
+
+## Code Structure
+
+Hier noch beschreiben was die einzelnen Files und Ordner machen oder für was die da sind.
 
 ## Paper Source
-[1] Ballagas, R., Rohs, M., & Sheridan, J. G. (2005, May). Mobile Phones as Pointing Devices. In PERMID (pp. 27-30).
-
-### Application Launcher
-
-Similiar to a previous assignment, in a file called application.txt, paths to specific applications can be added. The name of the gesture in front of a path represent the corresponding gesture that launches the file. These gestures can also be changed if needed. It's important that the name of the gesture corresponds to a defined gesture in the file called gestures_enum.py. 
+[1] Ballagas, R., Rohs, M., & Sheridan, J. G. (2005, May). Mobile Phones as Pointing Devices. In PERMID (pp. 27-30). 
