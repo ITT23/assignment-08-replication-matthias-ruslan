@@ -9,7 +9,8 @@ Paper by Ballagas et al. [1]
 
 ### Ruslan Asabidi 
 
-![Ruslan](https://github.com/ITT23/assignment-08-replication-matthias-ruslan/assets/41992838/de94a21c-dd7e-48d5-ab24-d3b9fff972d8)
+![me](https://github.com/ITT23/assignment-08-replication-matthias-ruslan/assets/41992838/929ca5c5-3c7e-4bcd-9e6c-351c1b4de827)
+
 
 ## The Paper
 
