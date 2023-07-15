@@ -18,5 +18,7 @@ while(True):
     if keyboard.is_pressed('q'):
         mouse_controller.disconnet()
         break
+    if keyboard.is_pressed('c'):
+        mouse_controller.show_capabilities()
     #time.sleep(0.1)
 
