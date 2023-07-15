@@ -52,7 +52,8 @@ In theory, any device that can be lifted/rotated/moved, equipped with an acceler
 
 ### Mouse Movement
 
-![Unbenannt](https://github.com/ITT23/assignment-08-replication-matthias-ruslan/assets/41992838/14d20f11-f1e3-41c5-821c-0d87d1fc612c)
+![Unbenannt](https://github.com/ITT23/assignment-08-replication-matthias-ruslan/assets/41992838/1aa0acc2-b673-4b25-b842-1bb9f6dc7dc3)
+
 
 
 
