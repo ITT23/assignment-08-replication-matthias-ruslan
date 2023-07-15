@@ -10,9 +10,12 @@ root = tkinter.Tk()
 
 class Config:
     # error messages
-    MISSING_ACCELEROMETER_EXCEPTION = "sensor has no accelerometer capability"
-    MISSING_BTN_1_EXCEPTION = "sensor has no button 1 capability"
-    MISSING_BTN_2_EXCEPTION = "sensor has no button 2 capability"
+    MISSING_ACCELEROMETER_EXCEPTION = "MISSING CAPABILITY: Sensor has no accelerometer capability. Mouse Curso movement and most features doesn't gonna work."
+    MISSING_BTN_1_EXCEPTION = "MISSING CAPABILITY: Sensor has no button 1 capability. Left mouse button and some features not gonna work."
+    MISSING_BTN_2_EXCEPTION = "MISSING CAPABILITY: Sensor has no button 2 capability. Right mouse button and some features not gonna work."
+    MISSING_BTN_3_EXCEPTION = "MISSING CAPABILITY: Sensor has no button 3 capability. Gesture recognition, virtual keyboard and and some other features not gonna work."
+    MISSING_BTN_4_EXCEPTION = "MISSING CAPABILITY: Sensor has no button 4 capability. Arrow navigation, virtual keyboard and and some other features not gonna work."
+    NO_MISSING_CAPABILITIES_MESSAGE = "All required capabilities are available"
 
     # Display size
     DISPLAY_HEIGHT = root.winfo_screenheight()

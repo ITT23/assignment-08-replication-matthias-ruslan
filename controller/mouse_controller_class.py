@@ -36,6 +36,7 @@ class MouseController():
         # 0 = not pressed / released; 1 = pressed
         self.left_click: int = 0
         self.right_click: int = 0
+        self.mouse_down_left:bool = False
         # value by which to multiply the x and y blit values
         self.movement_scaler_neg = Config.MOUSE_MOVEMENT_SCALING
         # one-dollar-gesture-recognizer
@@ -87,9 +88,6 @@ class MouseController():
             pyautogui.moveRel(self.blit_pos_x, self.blit_pos_y)
             # adjust cursor speed
             self.adjust_cursor_speed()
-        else:
-            # inform the user that the sensor is missing the accelerometer capability
-            print(Config.MISSING_ACCELEROMETER_EXCEPTION)
 
     # cursor speed is to be increased continuously up to a certain value during movement and reset again when stationary.
     def adjust_cursor_speed(self):
@@ -115,18 +113,31 @@ class MouseController():
         if sensor.has_capability('button_1'):
             self.left_click = sensor.get_value('button_1')
             if self.left_click == 1:
-                pyautogui.click(button="left")
-        else:
-            print(Config.MISSING_BTN_1_EXCEPTION)
+                if self.mouse_down_left is False:
+                    pyautogui.mouseDown(button='left')
+                    self.mouse_down_left = True
+                self.check_for_copy_paste_triggered()
+            else:
+                pyautogui.mouseUp(button='left')
+                self.mouse_down_left = False
 
     # trigger right mouse button if DIPPID button 2 was clicked
     def check_for_right_click_triggered(self):
         if sensor.has_capability('button_2'):
-            self.left_click = sensor.get_value('button_2')
-            if self.left_click == 1:
+            self.right_click = sensor.get_value('button_2')
+            
+            if self.right_click == 1 and self.left_click == 0:
                 pyautogui.click(button="right")
-        else:
-            print(Config.MISSING_BTN_2_EXCEPTION)
+
+    # copy/paste feature
+    def check_for_copy_paste_triggered(self):
+        if sensor.has_capability('button_2') and sensor.has_capability('button_3'):
+            # COPY: button 1 + button 2 (holding left and right mouse button)
+            if self.right_click == 1:
+                pyautogui.hotkey('ctrl', 'c')
+            # PASTE: button 1 + button 3
+            elif sensor.get_value('button_3') == 1:
+                pyautogui.hotkey('ctrl', 'v')
 
     # arrow navigation using mouse cursor
     def check_for_arrow_navigation_triggered(self,
@@ -134,7 +145,7 @@ class MouseController():
         # arrow navigation only if "button_4" capability is present 
         if sensor.has_capability('button_4'):
             # and button 4 is pressed/held.
-            if sensor.get_value('button_4') is 1:
+            if sensor.get_value('button_4') == 1:
                 if nav_direction is ArrowKeys.UP:
                     self.arrow_nav_feature.up()
                 elif nav_direction is ArrowKeys.DOWN:
@@ -149,7 +160,7 @@ class MouseController():
         # gesture recognition feature only if "button_3" capability is present 
         if sensor.has_capability('button_3'):
             # and button 3 is pressed/held.
-            if sensor.get_value('button_3') is 1:
+            if sensor.get_value('button_3') == 1:
                 # Get the current mouse position
                 current_x, current_y = pyautogui.position()
                 current_x += self.blit_pos_x
@@ -157,10 +168,11 @@ class MouseController():
                 # save point in the recognizer
                 self.gesture_recoginzer.add_point(int(current_x),
                                                   int(current_y))
+                
             # if button 3 released -> start the gesture recogniton process
             else:
                 # avoid unnecessary recognition process
-                if len(self.gesture_recoginzer.input_points) is not 0:
+                if len(self.gesture_recoginzer.input_points) != 0:
                     self.init_gesture_feature()
 
     # features based on the recognized gesture
@@ -186,3 +198,20 @@ class MouseController():
     # disconnet from sensor
     def disconnet(self):
         sensor.disconnect()
+
+    # show available / missing capabilities
+    def show_capabilities(self):
+        if not sensor.has_capability('accelerometer'):
+            print(Config.MISSING_ACCELEROMETER_EXCEPTION)
+        elif not sensor.has_capability('button_1'):
+            print(Config.MISSING_BTN_1_EXCEPTION)
+        elif not sensor.has_capability('button_2'):
+            print(Config.MISSING_BTN_2_EXCEPTION)
+        elif not sensor.has_capability('button_3'):
+            print(Config.MISSING_BTN_3_EXCEPTION)
+        elif not sensor.has_capability('button_4'):
+            print(Config.MISSING_BTN_4_EXCEPTION)
+        else:
+            print(Config.NO_MISSING_CAPABILITIES_MESSAGE)
+
+
