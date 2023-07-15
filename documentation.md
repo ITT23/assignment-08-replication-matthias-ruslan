@@ -25,16 +25,13 @@ Ballagas et al. [1] developed two complementary camera-based interaction techniq
 
 ![point_shoot](https://github.com/ITT23/assignment-08-replication-matthias-ruslan/assets/41992838/7dc57d3c-9022-4aab-a70e-6432da6047b4)
 
-## Paper Source
-[1] Ballagas, R., Rohs, M., & Sheridan, J. G. (2005, May). Mobile Phones as Pointing Devices. In PERMID (pp. 27-30).
-
 ## Our Motivation
 
-We found the idea of ​​using a smartphone to control the mouse very interesting. Especially with regard to the fact that we can implement the control using DIPPID. The study by Alex et al. is from 2005 and accordingly the options were limited. An external bulky accelerometer had to be attached for the study. 
+We were captivated by the concept of utilizing a smartphone as a mouse controller, particularly due to the intriguing prospect of implementing control through DIPPID. The study conducted by Ballagas et al. [1] in 2005 showcased the early stages of this interaction technique, albeit with limited options at the time. In order to carry out the study, an external and cumbersome accelerometer had to be attached.
 
 ![handy](https://github.com/ITT23/assignment-08-replication-matthias-ruslan/assets/41992838/5aa2de5c-2158-4406-9f91-f85e31bb9d62)
 
-Most smartphones in the lower price segment now have at least one integrated accelerometer. In addition, there are also sensors that provide gyroscope and angle data, among other things. The DIPPID functionality used in the course lends itself very well to expanding and implementing the approach presented in the paper. On the one hand, the data from the various sensors can be obtained and processed very easily using the DIPPID app, and on the other hand, the 3 buttons allow you to control the mouse buttons.
+Nowadays, even smartphones in the lower price range come equipped with at least one built-in accelerometer. Moreover, there are additional sensors that provide data on gyroscope and angles, among other things. The DIPPID functionality utilized in this course proves to be highly suitable for expanding upon and implementing the approach outlined in the paper. On one hand, the DIPPID app facilitates effortless acquisition and processing of data from various sensors. On the other hand, the inclusion of four buttons enables mouse button control and the incorporation of practical features related to mouse manipulation.
 
 ## Our Goal
 
@@ -56,6 +53,9 @@ Can be used via Smartphone or M5Stack
 ## Gestures
 
 To start recording a gesture hold button_3. The gestures are performed by "drawing" one of the predefined symbols with the mouse anywhere on the screen.
+
+## Paper Source
+[1] Ballagas, R., Rohs, M., & Sheridan, J. G. (2005, May). Mobile Phones as Pointing Devices. In PERMID (pp. 27-30).
 
 ### Application Launcher
 
