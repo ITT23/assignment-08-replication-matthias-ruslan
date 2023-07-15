@@ -75,11 +75,13 @@ During the movement of the cursor, the speed is further increased gradually up t
 
 ## Method
 
-**For the implementation, we initially tried two approaches:**
+For the implementation, we initially tried two approaches:
 
-1. Control based on raw accelerometer data: In this approach, the cursor's direction and speed were determined based on the values obtained from the accelerometer.
+1. **Control based on raw accelerometer data**: In this approach, the cursor's direction and speed were determined based on the values obtained from the accelerometer.
 
-2. LSTM (Long Short-Term Memory): In this approach, the trained model was fed with accelerometer data, and it made predictions about the direction of movement.
+2. **LSTM (Long Short-Term Memory) model**: In this approach, the trained model was fed with accelerometer data, and it made predictions about the direction of movement.
+
+For this task, we initially divided ourselves and each experimented with a different approach. Surprisingly, the control based solely on accelerometer data worked remarkably well compared to the LSTM model variant. While the predictions in the LSTM variant were often incorrect initially, they improved as we increased the size of the training dataset. With a sufficiently large training dataset, we could expect the predictions to be very reliable. However, we decided against this approach because the control based solely on accelerometer data performed exceptionally well. A well-trained LSTM model would be expected to perform just as well as the control based solely on accelerometer data, but it would involve an additional processing step that would ultimately lead to the same result. There would still be a risk of misinterpreting certain values, which would not happen with the control based solely on accelerometer data.
 
 ### Mouse Buttons
 
