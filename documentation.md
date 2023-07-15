@@ -35,12 +35,11 @@ Nowadays, even smartphones in the lower price range come equipped with at least 
 
 ## Our Goal
 
-We would like to implement the mouse control using variants and compare them with each other.
+Our objective consisted of two phases:
 
-1.) Control only via DIPED sensor data.
-2.) LSTM
+1) Enabling the user to control the mouse on the screen using a smartphone. This includes controlling the mouse cursor as well as the left and right mouse buttons. For this purpose, we utilized the accelerometer data from the smartphone and the values of the four buttons (1 = clicked/pressed, 0 = not clicked/released) obtained through the DIPPID application.
 
-We would also like to add other features such as latency options and other functions.
+2) Implementation of features that we deemed useful and could be realized through this interaction technique.
 
 ## Mouse Control
 
