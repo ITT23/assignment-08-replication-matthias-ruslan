@@ -15,8 +15,6 @@ from helper_classes.screenshot_class import ScreenshotFeature
 from helper_classes.arrow_navigation_class import ArrowNavigation
 # application launcher feature
 from helper_classes.applicationsLauncher_class import ApplicationLauncher
-# keyboard feature
-from helper_classes.virtual_keyboard_class import VirtualKeyboard
 
 # enums
 from enums.gestures_enum import \
@@ -30,7 +28,7 @@ sensor = SensorUDP(PORT)
 
 class MouseController():
 
-    def __init__(self):
+    def __init__(self, virtual_keyboard):
         # values ​​that are added to / subtracted from the current position of the x / y coordinates based on the accelerometer data
         self.blit_pos_x: float = 0.0
         self.blit_pos_y: float = 0.0
@@ -48,9 +46,11 @@ class MouseController():
         self.arrow_nav_feature = ArrowNavigation()
         # class for the application launcher functionalities
         self.application_launcher_feature = ApplicationLauncher()
-        # class for virtual keyboard functionalities
-        self.virtual_keyboard_feature = VirtualKeyboard()
+        self.virtual_keyboard = virtual_keyboard
         self.windowVisibility = True
+        self.isCurrentlyUsingKeyboard = False
+        self.mouse_x = 0
+        self.mouse_y = 0
 
     # move cursor based on the accelerometer data 
     # to move a certain threshold needs to be passed
@@ -120,7 +120,10 @@ class MouseController():
         if sensor.has_capability('button_1'):
             self.left_click = sensor.get_value('button_1')
             if self.left_click == 1:
-                pyautogui.click(button="left")
+                if self.isCurrentlyUsingKeyboard and self.windowVisibility:
+                    self.virtual_keyboard.check_key_input(self.mouse_x, self.mouse_y)
+                else:
+                    pyautogui.click(button="left")
         else:
             print(Config.MISSING_BTN_1_EXCEPTION)
 
