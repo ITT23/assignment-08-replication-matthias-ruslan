@@ -52,7 +52,28 @@ In theory, any device that can be lifted/rotated/moved, equipped with an acceler
 
 ### Mouse Movement
 
-![Unbenannt](https://github.com/ITT23/assignment-08-replication-matthias-ruslan/assets/41992838/e16dd4aa-c925-414e-9b62-f60956dd9359)
+There are the following directions possible:
+
+- Standstill
+- Up-left, up, up-right
+- Down-left, down, down-right
+  
+For the movement of the mouse cursor, the accelerometer data for the x-axis and y-axis are used. For the left and right directions, the x-value must exceed the threshold of 0.3 and -0.3, respectively. For the up and down directions, the y-value must exceed the threshold of 0.3 and -0.3, respectively. For the directions up-left, up-right, down-left, and down-right, both the x and y values must simultaneously exceed the threshold. 
+
+If the threshold is not exceeded on both axes, the cursor remains in a standstill position.
+
+When the respective threshold is exceeded, the movement occurs in the corresponding direction. The more the value is exceeded, the faster the cursor moves.
+
+During the movement of the cursor, the speed is further increased gradually up to a maximum value, as even at maximum accelerometer x/y values, the speed would be too slow. When in standstill, the speed is reset. The origin scaling value depends on the size of the screen display. This ensures that the speed is consistent across different screen sizes. We have implemented this because we noticed that while the speed scaling worked for one of us, it was too fast for the other.
+
+![dd](https://github.com/ITT23/assignment-08-replication-matthias-ruslan/assets/41992838/c5979707-fafb-4ac1-bd27-1f83187ca0d1)
+
+### Mouse Buttons
+
+The control of the left and right mouse buttons is done using Button 1 and Button 2 of the DIPPID application, respectively.
+
+
+
 
 
 
