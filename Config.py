@@ -41,4 +41,9 @@ class Config:
     # Optional creation mode
     CREATION_MODE = False
     NEW_CREATED_GESTURE_NAME = 'N'
-    
+
+    # feature messages
+    SCREENSHOOT_MESSAGE_V = "Screenshoot was taken and saved in the screenshot folder."
+    SCREENSHOOT_MESSAGE_CHECK = "Screenshot was taken and saved in the clipboard"
+    COPY_MESSAGE = "Marked text was copied."
+    PASTE_MESSAGE = "Text was pasted."

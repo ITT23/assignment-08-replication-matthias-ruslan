@@ -3,14 +3,9 @@ Paper by Ballagas et al. [1]
 
 ## Team 
 
-### Matthias Dobiosz
+### **Matthias Dobiosz** and **Ruslan Asabidi**
 
-![Matthias](https://github.com/ITT23/assignment-08-replication-matthias-ruslan/assets/41992838/5e58eed8-648c-4788-be6a-c25620acc1c5)
-
-### Ruslan Asabidi 
-
-![me](https://github.com/ITT23/assignment-08-replication-matthias-ruslan/assets/41992838/cc4b40f7-e27e-487a-8f29-2e624d3f414b)
-
+![team](https://github.com/ITT23/assignment-08-replication-matthias-ruslan/assets/41992838/0329aa88-5d46-4671-8be0-c8b50baf64d0)
 
 
 ## The Paper
@@ -51,7 +46,7 @@ Can be used via Smartphone or M5Stack
 In theory, any device that can be lifted/rotated/moved, equipped with an accelerometer sensor and compatible with the DIPPID application can be used for interaction.
 
 #### When using both devices for interaction, the following should be considered:
-*The control of the mouse cursor, left and right mouse buttons, as well as the gesture feature (see "Features" section), is possible with both devices. However, some features that require a fourth button (see "Features" section) are not available with the M5Stack because it only has three physical buttons. In such cases, a smartphone with the DIPPID app, which has four buttons, must be used instead.*
+*The control of the mouse cursor, left and right mouse buttons, as well as the gesture feature (see "Features" section), is possible with both devices. However, some features that require a fourth button (see "Features" section) are not available with the M5Stack because it only has three physical buttons. In such cases, if you want to use all features, a smartphone with the DIPPID app, must be used instead.*
 
 *It is also possible to experience disruptions when using the DIPPID app. We encountered two instances where, with the same code implementation, the control of the mouse cursor performed poorly on one occasion while working perfectly on the other. This disruption manifested as significant latency issues, resulting in outdated values being received. This problem occurred very rarely (2 times) and only when using the DIPPID app with a smartphone. Sometimes, restarting the smartphone helped resolve the issue. However, it always worked flawlessly with the M5Stack device (even when the disruption occurred simultaneously with the smartphone usage).*
 
@@ -59,9 +54,10 @@ In theory, any device that can be lifted/rotated/moved, equipped with an acceler
 
 There are the following directions possible:
 
-- Standstill
-- Up-left, up, up-right
-- Down-left, down, down-right
+- standstill
+- left, right
+- up-left, up, up-right
+- down-left, down, down-right
   
 For the movement of the mouse cursor, the accelerometer data for the x-axis and y-axis are used. For the left and right directions, the x-value must exceed the threshold of 0.3 and -0.3, respectively. For the up and down directions, the y-value must exceed the threshold of 0.3 and -0.3, respectively. For the directions up-left, up-right, down-left, and down-right, both the x and y values must simultaneously exceed the threshold. 
 
@@ -94,26 +90,79 @@ Only the interaction device and the DIPPID application are used for all features
 
 We have implemented the following features:
 
-### Screenshot
+### 1.1 Gesture Feature: Screenshot
+*Gesture-Feature: To draw a gesture, Button 3 is pressed and held in the DIPPID app while drawing with the mouse cursor. After releasing button 3, the drawn gesture is analyzed for recognition.*
 
-### Application Launcer
+The screenshot feature consists of two gestures. One gesture involves drawing a "v" shape, and the other involves drawing a checkmark.
+
+![ddd](https://github.com/ITT23/assignment-08-replication-matthias-ruslan/assets/41992838/078b2b58-04c4-4d7f-a29b-b696f252d8d6)
+
+For both gestures, a screenshot of the screen is taken. The difference lies in how the screenshot is handled afterward. When the "v" gesture is drawn, the screenshot is automatically saved in the "screenshots" folder. The storage location can be adjusted in the "Config.py" file under the "SCREENSHOT_FOLDER_PATH" section.
+
+On the other hand, when a checkmark gesture is drawn, the screenshot is not automatically saved but instead copied to the clipboard. This allows the user to either paste the screenshot into an editor (e.g., Paint) for editing or paste it elsewhere without the need to save the screenshot permanently.
+
+### 1.2 Gesture Feature: Application Launcer
+*Gesture-Feature: To draw a gesture, Button 3 is pressed and held in the DIPPID app while drawing with the mouse cursor. After releasing button 3, the drawn gesture is analyzed for recognition.*
+
 Similiar to a previous assignment, in a file called application.txt, paths to specific applications can be added. The name of the gesture in front of a path represent the corresponding gesture that launches the file. These gestures can also be changed if needed. It's important that the name of the gesture corresponds to a defined gesture in the file called gestures_enum.py.
 
-### Arrow-Key-Navigation 
+### 1.3 Costum Gestures
 
-### Copy-Paste 
+### 2. Arrow-Key-Navigation 
 
-### Virtuell Keyboard
+This feature allows the arrow keys (up, down, left, and right) to be operated using the mouse cursor. When Button 4 is pressed and held, the movement direction of the cursor corresponds to the respective arrow key.
 
-### Costum Gestures
+Here are two examples of its usage:
+
+1. **Scrolling up or down**: The mouse cursor moves upwards (UP ARROW) or downwards (DOWN ARROW).
+
+2. **Navigating presentation slides left or right**: The mouse cursor moves to the left (LEFT ARROW) or to the right (RIGHT ARROW) to jump between slides.
+
+### 3. Copy-Paste 
+
+This feature aims to accelerate the copy-paste process using the mouse by integrating "Ctrl + C" and "Ctrl + V" functionalities.
+
+**COPY**: When text is selected by pressing and holding and than releasing Button 1 (controls the left mouse button), it can be copied by simultaneously pressing Button 1 and Button 2.
+
+**PASTE**: To paste the copied text somewhere else, press simultaneously Button 1 and Button 3.
+
+While the copy-paste process can also be performed without this feature by using Button 2 (controls the right mouse button) and selecting "Copy" and later "Paste", this feature is designed to expedite the process and provide added convenience.
+
+### 4. Virtuell Keyboard
+
+
 
 ## Start Application
 
 mouse_app.py
 
+## Quit Application
+
+Key 'Q' on the keyboard
+
+## Sensor Capabilities
+
+Key 'C' on the keyboard
+
+Provides information about whether one or more capabilities (accelerometer, button 1, button 2, button 3, or button 4) are missing and which features would not function as a result.
+
 ## Code Structure
 
-Hier noch beschreiben was die einzelnen Files und Ordner machen oder für was die da sind.
+**mouse_app.py** -> starts the application
+
+controller/**mouse_controller_class.py** -> logic
+
+data/**gesture_template_dict.py** -> dict containing gesture templates
+
+**enums** folder -> enums for the arrow keys and gestures
+
+helper_classes -> different classes we created for our features
+
+screenshots -> here the screenshoots taken are saved
+
+Config.py -> for magic numbers and strings
+
+DIPPID.py -> DIPPID functionalities
 
 ## Paper Source
 [1] Ballagas, R., Rohs, M., & Sheridan, J. G. (2005, May). Mobile Phones as Pointing Devices. In PERMID (pp. 27-30). 
