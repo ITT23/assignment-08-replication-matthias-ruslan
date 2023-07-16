@@ -3,13 +3,9 @@ Paper by Ballagas et al. [1]
 
 ## Team 
 
-### Matthias Dobiosz
+### **Matthias Dobiosz** and **Ruslan Asabidi**
 
-![Matthias](https://github.com/ITT23/assignment-08-replication-matthias-ruslan/assets/41992838/5e58eed8-648c-4788-be6a-c25620acc1c5)
-
-### Ruslan Asabidi 
-
-![me](https://github.com/ITT23/assignment-08-replication-matthias-ruslan/assets/41992838/cc4b40f7-e27e-487a-8f29-2e624d3f414b)
+![team](https://github.com/ITT23/assignment-08-replication-matthias-ruslan/assets/41992838/0215df76-dd34-43df-9c40-3ce371694c5c)
 
 
 
