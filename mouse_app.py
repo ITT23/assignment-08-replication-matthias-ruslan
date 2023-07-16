@@ -1,5 +1,4 @@
 import keyboard
-import time
 from helper_classes.virtual_keyboard_class import VirtualKeyboard
 from controller.mouse_controller_class import MouseController
 import pyglet
@@ -35,16 +34,18 @@ def on_mouse_enter(x, y):
 
 @window.event
 def on_mouse_leave(x, y):
-    mouse_controller.isCurrentlyUsingKeyboard = True
+    mouse_controller.isCurrentlyUsingKeyboard = False
 
 
 @window.event
 def on_key_press(symbol, modifiers):
     if symbol == pyglet.window.key.Q:
         pyglet.exit()
+    elif symbol == pyglet.window.key.C:
+        mouse_controller.show_capabilities()
 
 
-clock.schedule_interval(mouse_controller.check_for_movement, 0.0001)
+clock.schedule_interval(mouse_controller.check_for_movement, 0.00001)
 clock.schedule_interval(mouse_controller.check_for_left_click_triggered, 0.001)
 clock.schedule_interval(mouse_controller.check_for_right_click_triggered,
                         0.001)
