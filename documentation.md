@@ -90,7 +90,7 @@ Only the interaction device and the DIPPID application are used for all features
 
 We have implemented the following features:
 
-### Screenshot
+### 1.1 Gesture Feature: Screenshot
 *Gesture-Feature: To draw a gesture, Button 3 is pressed and held in the DIPPID app while drawing with the mouse cursor. After releasing button 3, the drawn gesture is analyzed for recognition.*
 
 The screenshot feature consists of two gestures. One gesture involves drawing a "v" shape, and the other involves drawing a checkmark.
@@ -101,12 +101,14 @@ For both gestures, a screenshot of the screen is taken. The difference lies in h
 
 On the other hand, when a checkmark gesture is drawn, the screenshot is not automatically saved but instead copied to the clipboard. This allows the user to either paste the screenshot into an editor (e.g., Paint) for editing or paste it elsewhere without the need to save the screenshot permanently.
 
-### Application Launcer
+### 1.2 Gesture Feature: Application Launcer
 *Gesture-Feature: To draw a gesture, Button 3 is pressed and held in the DIPPID app while drawing with the mouse cursor. After releasing button 3, the drawn gesture is analyzed for recognition.*
 
 Similiar to a previous assignment, in a file called application.txt, paths to specific applications can be added. The name of the gesture in front of a path represent the corresponding gesture that launches the file. These gestures can also be changed if needed. It's important that the name of the gesture corresponds to a defined gesture in the file called gestures_enum.py.
 
-### Arrow-Key-Navigation 
+### 1.3 Costum Gestures
+
+### 2. Arrow-Key-Navigation 
 
 This feature allows the arrow keys (up, down, left, and right) to be operated using the mouse cursor. When Button 4 is pressed and held, the movement direction of the cursor corresponds to the respective arrow key.
 
@@ -116,11 +118,18 @@ Here are two examples of its usage:
 
 2. **Navigating presentation slides left or right**: The mouse cursor moves to the left (LEFT ARROW) or to the right (RIGHT ARROW) to jump between slides.
 
-### Copy-Paste 
+### 3. Copy-Paste 
 
-### Virtuell Keyboard
+This feature aims to accelerate the copy-paste process using the mouse by integrating "Ctrl + C" and "Ctrl + V" functionalities.
 
-### Costum Gestures
+**COPY**: When text is selected by pressing and holding Button 1 (controls the left mouse button), it can be copied by continuing to hold Button 1 and simultaneously pressing Button 2.
+
+**PASTE**: To paste the copied text somewhere else, press and hold Button 1 and simultaneously press Button 3.
+
+
+### 4. Virtuell Keyboard
+
+
 
 
 mouse_app.py
