@@ -24,7 +24,11 @@ class ApplicationLauncher:
     def init_application(self, gesture):
         for i in range(0, len(self.applicationPaths)):
             if gesture == self.applicationPaths[i]["gestureName"]:
-                subprocess.Popen([self.applicationPaths[i]["path"]])
+                try:
+                    subprocess.Popen([self.applicationPaths[i]["path"]])
+                except Exception as e:
+                    print(Config.WRONG_APPLICATION_PATH_EXCEPTION)
+
                 return True
 
         return False

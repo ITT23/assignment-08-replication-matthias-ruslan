@@ -16,6 +16,7 @@ class Config:
     MISSING_BTN_3_EXCEPTION = "MISSING CAPABILITY: Sensor has no button 3 capability. Gesture recognition, virtual keyboard and and some other features not gonna work."
     MISSING_BTN_4_EXCEPTION = "MISSING CAPABILITY: Sensor has no button 4 capability. Arrow navigation, virtual keyboard and and some other features not gonna work."
     NO_MISSING_CAPABILITIES_MESSAGE = "All required capabilities are available"
+    WRONG_APPLICATION_PATH_EXCEPTION = "Application could not be launched, make sure the path is correct"
 
     # Display size
     DISPLAY_HEIGHT = root.winfo_screenheight()
