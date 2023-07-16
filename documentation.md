@@ -122,9 +122,9 @@ Here are two examples of its usage:
 
 This feature aims to accelerate the copy-paste process using the mouse by integrating "Ctrl + C" and "Ctrl + V" functionalities.
 
-**COPY**: When text is selected by pressing and holding Button 1 (controls the left mouse button), it can be copied by continuing to hold Button 1 and simultaneously pressing Button 2.
+**COPY**: When text is selected by pressing and holding and than releasing Button 1 (controls the left mouse button), it can be copied by simultaneously pressing Button 1 and Button 2.
 
-**PASTE**: To paste the copied text somewhere else, press and hold Button 1 and simultaneously press Button 3.
+**PASTE**: To paste the copied text somewhere else, press simultaneously Button 1 and Button 3.
 
 While the copy-paste process can also be performed without this feature by using Button 2 (controls the right mouse button) and selecting "Copy" and later "Paste", this feature is designed to expedite the process and provide added convenience.
 
