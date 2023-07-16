@@ -46,7 +46,7 @@ Can be used via Smartphone or M5Stack
 In theory, any device that can be lifted/rotated/moved, equipped with an accelerometer sensor and compatible with the DIPPID application can be used for interaction.
 
 #### When using both devices for interaction, the following should be considered:
-*The control of the mouse cursor, left and right mouse buttons, as well as the gesture feature (see "Features" section), is possible with both devices. However, some features that require a fourth button (see "Features" section) are not available with the M5Stack because it only has three physical buttons. In such cases, a smartphone with the DIPPID app, which has four buttons, must be used instead.*
+*The control of the mouse cursor, left and right mouse buttons, as well as the gesture feature (see "Features" section), is possible with both devices. However, some features that require a fourth button (see "Features" section) are not available with the M5Stack because it only has three physical buttons. In such cases, if you want to use all features, a smartphone with the DIPPID app, must be used instead.*
 
 *It is also possible to experience disruptions when using the DIPPID app. We encountered two instances where, with the same code implementation, the control of the mouse cursor performed poorly on one occasion while working perfectly on the other. This disruption manifested as significant latency issues, resulting in outdated values being received. This problem occurred very rarely (2 times) and only when using the DIPPID app with a smartphone. Sometimes, restarting the smartphone helped resolve the issue. However, it always worked flawlessly with the M5Stack device (even when the disruption occurred simultaneously with the smartphone usage).*
 
