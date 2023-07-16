@@ -91,8 +91,19 @@ Only the interaction device and the DIPPID application are used for all features
 We have implemented the following features:
 
 ### Screenshot
+*Gesture-Feature: To draw a gesture, Button 3 is pressed and held in the DIPPID app while drawing with the mouse cursor. After releasing button 3, the drawn gesture is analyzed for recognition.*
+
+The screenshot feature consists of two gestures. One gesture involves drawing a "v" shape, and the other involves drawing a checkmark.
+
+![ddd](https://github.com/ITT23/assignment-08-replication-matthias-ruslan/assets/41992838/078b2b58-04c4-4d7f-a29b-b696f252d8d6)
+
+For both gestures, a screenshot of the screen is taken. The difference lies in how the screenshot is handled afterward. When the "v" gesture is drawn, the screenshot is automatically saved in the "screenshots" folder. The storage location can be adjusted in the "Config.py" file under the "SCREENSHOT_FOLDER_PATH" section.
+
+On the other hand, when a checkmark gesture is drawn, the screenshot is not automatically saved but instead copied to the clipboard. This allows the user to either paste the screenshot into an editor (e.g., Paint) for editing or paste it elsewhere without the need to save the screenshot permanently.
 
 ### Application Launcer
+*Gesture-Feature: To draw a gesture, Button 3 is pressed and held in the DIPPID app while drawing with the mouse cursor. After releasing button 3, the drawn gesture is analyzed for recognition.*
+
 Similiar to a previous assignment, in a file called application.txt, paths to specific applications can be added. The name of the gesture in front of a path represent the corresponding gesture that launches the file. These gestures can also be changed if needed. It's important that the name of the gesture corresponds to a defined gesture in the file called gestures_enum.py.
 
 ### Arrow-Key-Navigation 
@@ -103,7 +114,6 @@ Similiar to a previous assignment, in a file called application.txt, paths to sp
 
 ### Costum Gestures
 
-## Start Application
 
 mouse_app.py
 
