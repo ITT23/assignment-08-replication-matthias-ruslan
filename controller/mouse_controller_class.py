@@ -4,7 +4,7 @@
 import pyautogui
 # stores strings an magic numbers
 from Config import Config
-# DIPPID functionality 
+# DIPPID functionality
 from DIPPID import SensorUDP
 
 # gesture recognizer class
@@ -28,7 +28,7 @@ sensor = SensorUDP(PORT)
 
 class MouseController():
 
-    def __init__(self, virtual_keyboard):
+    def __init__(self):
         # values ​​that are added to / subtracted from the current position of the x / y coordinates based on the accelerometer data
         self.blit_pos_x: float = 0.0
         self.blit_pos_y: float = 0.0
@@ -36,7 +36,7 @@ class MouseController():
         # 0 = not pressed / released; 1 = pressed
         self.left_click: int = 0
         self.right_click: int = 0
-        self.mouse_down_left:bool = False
+        self.mouse_down_left: bool = False
         # value by which to multiply the x and y blit values
         self.movement_scaler_neg = Config.MOUSE_MOVEMENT_SCALING
         # one-dollar-gesture-recognizer
@@ -47,21 +47,12 @@ class MouseController():
         self.arrow_nav_feature = ArrowNavigation()
         # class for the application launcher functionalities
         self.application_launcher_feature = ApplicationLauncher()
-        # class for they keyboard functionalities
-        self.virtual_keyboard = virtual_keyboard
-        # if keyboard window is visible
-        self.windowVisibility = True
-        # user is currently inside the keyboard window
-        self.isCurrentlyUsingKeyboard = False
-        # mouse positions inside the keyboard window
-        self.mouse_x = 0
-        self.mouse_y = 0
 
-    # move cursor based on the accelerometer data 
+    # move cursor based on the accelerometer data
     # to move a certain threshold needs to be passed
     # cursor speed is to be increased continuously up to a certain value during movement and reset again when stationary.
     # If button 4 is pressed, this method also uses the accelerometer data to determine which arrow navigation should take place (up, down, left or right arrow key).
-    def check_for_movement(self, dx):
+    def check_for_movement(self):
         if sensor.has_capability('accelerometer'):
             # get DIPPID accelerometer data
             self.blit_pos_x = float(sensor.get_value('accelerometer')['x'])
@@ -118,32 +109,30 @@ class MouseController():
             self.check_for_gesture_feature_triggered()
 
     # trigger left mouse button if DIPPID button 1 was clicked
-    def check_for_left_click_triggered(self, dx):
+    def check_for_left_click_triggered(self):
         if sensor.has_capability('button_1'):
             self.left_click = sensor.get_value('button_1')
             if self.left_click == 1:
-                if self.isCurrentlyUsingKeyboard and self.windowVisibility:
-                    self.virtual_keyboard.check_key_input(self.mouse_x, self.mouse_y)
-                else:
-                    if self.mouse_down_left is False:
-                        pyautogui.mouseDown(button='left')
-                        self.mouse_down_left = True
+                if self.mouse_down_left is False:
+                    pyautogui.mouseDown(button='left')
+                    self.mouse_down_left = True
                 self.check_for_copy_paste_triggered()
-            elif self.mouse_down_left:
+            else:
                 pyautogui.mouseUp(button='left')
                 self.mouse_down_left = False
 
     # trigger right mouse button if DIPPID button 2 was clicked
-    def check_for_right_click_triggered(self, dx):
+    def check_for_right_click_triggered(self):
         if sensor.has_capability('button_2'):
             self.right_click = sensor.get_value('button_2')
-            
+
             if self.right_click == 1 and self.left_click == 0:
                 pyautogui.click(button="right")
 
     # copy/paste feature
     def check_for_copy_paste_triggered(self):
-        if sensor.has_capability('button_2') and sensor.has_capability('button_3'):
+        if sensor.has_capability('button_2') and sensor.has_capability(
+                'button_3'):
             # COPY: button 1 + button 2 (holding left and right mouse button)
             if self.right_click == 1:
                 print("copy")
@@ -153,19 +142,10 @@ class MouseController():
                 print("paste")
                 pyautogui.hotkey('ctrl', 'v')
 
-    # keyboard visibility toggle
-    def check_for_keyboard_triggered(self, dx, window):
-        if sensor.has_capability('button_3') and sensor.has_capability('button_4'):
-            button3_click = sensor.get_value('button_3')
-            button4_click = sensor.get_value('button_4')
-            if button3_click and button4_click:
-                window.set_visible(not self.windowVisibility)
-                self.windowVisibility = not self.windowVisibility
-
     # arrow navigation using mouse cursor
     def check_for_arrow_navigation_triggered(self,
                                              nav_direction: ArrowNavigation):  # passing the arrow navigation direction when moving the cursor
-        # arrow navigation only if "button_4" capability is present 
+        # arrow navigation only if "button_4" capability is present
         if sensor.has_capability('button_4'):
             # and button 4 is pressed/held.
             if sensor.get_value('button_4') == 1:
@@ -180,7 +160,7 @@ class MouseController():
 
     # collects the x and y coordinates of the gesture drawing
     def check_for_gesture_feature_triggered(self):
-        # gesture recognition feature only if "button_3" capability is present 
+        # gesture recognition feature only if "button_3" capability is present
         if sensor.has_capability('button_3'):
             # and button 3 is pressed/held.
             if sensor.get_value('button_3') == 1:
@@ -191,11 +171,11 @@ class MouseController():
                 # save point in the recognizer
                 self.gesture_recoginzer.add_point(int(current_x),
                                                   int(current_y))
-                
+
             # if button 3 released -> start the gesture recogniton process
             else:
                 # avoid unnecessary recognition process
-                if len(self.gesture_recoginzer.input_points) > 10:
+                if len(self.gesture_recoginzer.input_points) != 0:
                     self.init_gesture_feature()
 
     # features based on the recognized gesture
@@ -205,7 +185,8 @@ class MouseController():
 
         matched_template = self.gesture_recoginzer.get_matching_template()
 
-        if not(self.application_launcher_feature.init_application(matched_template)):
+        if not (
+        self.application_launcher_feature.init_application(matched_template)):
             # SCREENSHOT FEATURE
             # gesture "v" -> take screenshot and save it in the screenshot folder
             if matched_template == Gesture.V.value:
