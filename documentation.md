@@ -108,7 +108,7 @@ Similiar to a previous assignment, in a file called application.txt, paths to sp
 
 ### 1.3 Costum Gestures
 
-Another feature, which can be used by developers, is the ability to add custom gestures and integrate them into the Code. To do this, in the "Config.py" CREATION_MODE must be set to True. The variable NEW_CREATED_GESTURE_NAME describes the name of the resulting gesture. After setting the variables, the program can be started normally. Now, when button 3 is held, the developer can draw any gesture with the mouse. After closing the program, a line will be added to the "custom_templates.txt" file. That line then has to be copied into the one_dollar_gesture_templates-dictionary under "data/gesture_templates_dict.py". The gesture can then be integrated into the program.
+Another feature, which can be used by developers, is the ability to add custom gestures and integrate them into the Code. To do this, in the "Config.py" CREATION_MODE must be set to True. The variable NEW_CREATED_GESTURE_NAME describes the name of the resulting gesture. After setting the variables, the program can be started normally. Now, when button 3 is held, the developer can draw any gesture with the mouse. After closing the program, a line will be added to the "custom_templates.txt" file. That line then has to be copied into the dictionary called "one_dollar_gesture_templates" under "data/gesture_templates_dict.py". The gesture can then be integrated into the program by the developer.
 
 ### 2. Arrow-Key-Navigation 
 
@@ -136,7 +136,7 @@ This feature enables the user to perform text-Input using the mouse by displayin
 
 **TOGGLE**: To toggle the visibility of the keyboard, the user can press button 3 and button 4 simulatniously. The mouse should not be moved while doing this, as it can lead to the program recognizing a gesture instead.
 
-**INPUT**: The keyboard can be used to perform text input, by simply hovering over the virtual keyboard with the mouse and pressing button 1 (left click) at the chosen button. The initial keyboard only displays lowercase letters, but pressing CapsLK will transform some of the buttons on the Keyboard to enable more input possibilities. It is also to note that this will not trigger an actual left click on the mouse, as it would shift the focus from the chosen text-field to the pyglet window.
+**INPUT**: The keyboard can be used to perform text input, by simply hovering over the virtual keyboard with the mouse and pressing button 1 (left click) at the chosen button of the keyboard. The initial keyboard only displays lowercase letters, but pressing CapsLK will transform some of the buttons on the Keyboard to enable more input possibilities. It is also to note that clicking on the keyboard using DIPPID or the M5Stack will not trigger an actual left click on the mouse, as it would shift the focus from the chosen text-field to the pyglet window. This means the keyboard will not work when trying to use it with the actual mouse of the computer.
 
 
 
