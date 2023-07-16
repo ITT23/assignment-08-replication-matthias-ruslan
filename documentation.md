@@ -54,9 +54,10 @@ In theory, any device that can be lifted/rotated/moved, equipped with an acceler
 
 There are the following directions possible:
 
-- Standstill
-- Up-left, up, up-right
-- Down-left, down, down-right
+- standstill
+- left, right
+- up-left, up, up-right
+- down-left, down, down-right
   
 For the movement of the mouse cursor, the accelerometer data for the x-axis and y-axis are used. For the left and right directions, the x-value must exceed the threshold of 0.3 and -0.3, respectively. For the up and down directions, the y-value must exceed the threshold of 0.3 and -0.3, respectively. For the directions up-left, up-right, down-left, and down-right, both the x and y values must simultaneously exceed the threshold. 
 
