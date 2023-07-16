@@ -142,7 +142,7 @@ Key 'Q' on the keyboard
 
 ## Sensor Capabilities
 
-Key 'Q' on the keyboard
+Key 'C' on the keyboard
 
 Provides information about whether one or more capabilities (accelerometer, button 1, button 2, button 3, or button 4) are missing and which features would not function as a result.
 
