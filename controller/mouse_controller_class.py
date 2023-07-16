@@ -151,6 +151,7 @@ class MouseController():
             # COPY: button 1 + button 2 (holding left and right mouse button)
             if self.right_click == 1:
                 pyautogui.hotkey('ctrl', 'c')
+                print(Config.COPY_MESSAGE)
             # PASTE: button 1 + button 3
             elif sensor.get_value('button_3') == 1:
                 pyautogui.hotkey('ctrl', 'v')
