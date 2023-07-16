@@ -101,7 +101,7 @@ For both gestures, a screenshot of the screen is taken. The difference lies in h
 
 On the other hand, when a checkmark gesture is drawn, the screenshot is not automatically saved but instead copied to the clipboard. This allows the user to either paste the screenshot into an editor (e.g., Paint) for editing or paste it elsewhere without the need to save the screenshot permanently.
 
-### 1.2 Gesture Feature: Application Launcer
+### 1.2 Gesture Feature: Application Launcher
 *Gesture-Feature: To draw a gesture, Button 3 is pressed and held in the DIPPID app while drawing with the mouse cursor. After releasing button 3, the drawn gesture is analyzed for recognition.*
 
 Similiar to a previous assignment, in a file called application.txt, paths to specific applications can be added. The name of the gesture in front of a path represent the corresponding gesture that launches the file. These gestures can also be changed if needed. It's important that the name of the gesture corresponds to a defined gesture in the file called gestures_enum.py.
@@ -136,7 +136,7 @@ This feature enables the user to perform text-Input using the mouse by displayin
 
 **TOGGLE**: To toggle the visibility of the keyboard, the user can press button 3 and button 4 simulatniously. The mouse should not be moved while doing this, as it can lead to the program recognizing a gesture instead.
 
-**INPUT**: The keyboard can be used to perform text input, by simply hovering over the virtual keyboard with the mouse and pressing button 1 (left click) at the chosen button. The initial keyboard only displays lowercase letters, but pressing CapsLK will transform some of the buttons on the Keyboard to enable more input possibilities. It is also to note that this will not simulate an actual left click on the mouse, as it would shift the focus from the chosen text-field to the pyglet window.
+**INPUT**: The keyboard can be used to perform text input, by simply hovering over the virtual keyboard with the mouse and pressing button 1 (left click) at the chosen button. The initial keyboard only displays lowercase letters, but pressing CapsLK will transform some of the buttons on the Keyboard to enable more input possibilities. It is also to note that this will not trigger an actual left click on the mouse, as it would shift the focus from the chosen text-field to the pyglet window.
 
 
 
