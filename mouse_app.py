@@ -36,7 +36,8 @@ def on_mouse_leave(x, y):
 @window.event
 def on_key_press(symbol, modifiers):
     if symbol == pyglet.window.key.Q:
-        pyglet.exit()
+        #pyglet.exit()
+        mouse_controller.disconnet()
     elif symbol == pyglet.window.key.C:
         mouse_controller.show_capabilities()
 

@@ -209,17 +209,18 @@ class MouseController():
         self.gesture_recoginzer.recognize()
 
         matched_template = self.gesture_recoginzer.get_matching_template()
+        score = self.gesture_recoginzer.get_score()
 
         if not (
         self.application_launcher_feature.init_application(matched_template)):
             # SCREENSHOT FEATURE
             # gesture "v" -> take screenshot and save it in the screenshot folder
-            if matched_template == Gesture.V.value:
+            if matched_template == Gesture.V.value and float(score) > 0.8:
                 self.screenshot_feature.take_and_save_screenshot()
                 print(Config.SCREENSHOOT_MESSAGE_V)
 
                 # gesture "check" -> take the screenshot and save it to the clipboard
-            elif matched_template == Gesture.CHECK.value:
+            elif matched_template == Gesture.CHECK.value and float(score) > 0.8:
                 self.screenshot_feature.take_screenshot()
                 print(Config.SCREENSHOOT_MESSAGE_CHECK)
 
