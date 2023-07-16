@@ -136,7 +136,7 @@ This feature enables the user to perform text-Input using the mouse by displayin
 
 **TOGGLE**: To toggle the visibility of the keyboard, the user can press button 3 and button 4 simulatniously. The mouse should not be moved while doing this, as it can lead to the program recognizing a gesture instead.
 
-**INPUT**: The keyboard can be used to perform text input, by simply hovering over the virtual keyboard with the mouse and pressing button 1 (left click). The initial keyboard only displays lowercase letters, but pressing CapsLK will transform some of the buttons on the Keyboard to enable more input possibilities. 
+**INPUT**: The keyboard can be used to perform text input, by simply hovering over the virtual keyboard with the mouse and pressing button 1 (left click) at the chosen button. The initial keyboard only displays lowercase letters, but pressing CapsLK will transform some of the buttons on the Keyboard to enable more input possibilities. It is also to note that this will not simulate an actual left click on the mouse, as it would shift the focus from the chosen text-field to the pyglet window.
 
 
 
