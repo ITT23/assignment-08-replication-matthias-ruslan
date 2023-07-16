@@ -135,9 +135,11 @@ class MouseController():
             # COPY: button 1 + button 2 (holding left and right mouse button)
             if self.right_click == 1:
                 pyautogui.hotkey('ctrl', 'c')
+                print(Config.COPY_MESSAGE)
             # PASTE: button 1 + button 3
             elif sensor.get_value('button_3') == 1:
                 pyautogui.hotkey('ctrl', 'v')
+                print(Config.PASTE_MESSAGE)
 
     # arrow navigation using mouse cursor
     def check_for_arrow_navigation_triggered(self,
@@ -187,10 +189,12 @@ class MouseController():
             # gesture "v" -> take screenshot and save it in the screenshot folder
             if matched_template == Gesture.V.value:
                 self.screenshot_feature.take_and_save_screenshot()
+                print(Config.SCREENSHOOT_MESSAGE_V)
 
                 # gesture "check" -> take the screenshot and save it to the clipboard
             elif matched_template == Gesture.CHECK.value:
                 self.screenshot_feature.take_screenshot()
+                print(Config.SCREENSHOOT_MESSAGE_CHECK)
 
         # reset recognizer
         self.gesture_recoginzer.reset_recognizer()
