@@ -5,8 +5,7 @@ Paper by Ballagas et al. [1]
 
 ### **Matthias Dobiosz** and **Ruslan Asabidi**
 
-![team](https://github.com/ITT23/assignment-08-replication-matthias-ruslan/assets/41992838/0215df76-dd34-43df-9c40-3ce371694c5c)
-
+![team](https://github.com/ITT23/assignment-08-replication-matthias-ruslan/assets/41992838/0329aa88-5d46-4671-8be0-c8b50baf64d0)
 
 
 ## The Paper
