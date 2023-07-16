@@ -108,6 +108,14 @@ Similiar to a previous assignment, in a file called application.txt, paths to sp
 
 ### Arrow-Key-Navigation 
 
+This feature allows the arrow keys (up, down, left, and right) to be operated using the mouse cursor. When Button 4 is pressed and held, the movement direction of the cursor corresponds to the respective arrow key.
+
+Here are two examples of its usage:
+
+1. **Scrolling up or down**: The mouse cursor moves upwards (UP ARROW) or downwards (DOWN ARROW).
+
+2. **Navigating presentation slides left or right**: The mouse cursor moves to the left (LEFT ARROW) or to the right (RIGHT ARROW) to jump between slides.
+
 ### Copy-Paste 
 
 ### Virtuell Keyboard
