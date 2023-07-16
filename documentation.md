@@ -126,17 +126,43 @@ This feature aims to accelerate the copy-paste process using the mouse by integr
 
 **PASTE**: To paste the copied text somewhere else, press and hold Button 1 and simultaneously press Button 3.
 
+While the copy-paste process can also be performed without this feature by using Button 2 (controls the right mouse button) and selecting "Copy" and later "Paste", this feature is designed to expedite the process and provide added convenience.
 
 ### 4. Virtuell Keyboard
 
 
 
+## Start Application
 
 mouse_app.py
 
+## Quit Application
+
+Key 'Q' on the keyboard
+
+## Sensor Capabilities
+
+Key 'Q' on the keyboard
+
+Provides information about whether one or more capabilities (accelerometer, button 1, button 2, button 3, or button 4) are missing and which features would not function as a result.
+
 ## Code Structure
 
-Hier noch beschreiben was die einzelnen Files und Ordner machen oder für was die da sind.
+**mouse_app.py** -> starts the application
+
+controller/**mouse_controller_class.py** -> logic
+
+data/**gesture_template_dict.py** -> dict containing gesture templates
+
+**enums** folder -> enums for the arrow keys and gestures
+
+helper_classes -> different classes we created for our features
+
+screenshots -> here the screenshoots taken are saved
+
+Config.py -> for magic numbers and strings
+
+DIPPID.py -> DIPPID functionalities
 
 ## Paper Source
 [1] Ballagas, R., Rohs, M., & Sheridan, J. G. (2005, May). Mobile Phones as Pointing Devices. In PERMID (pp. 27-30). 
