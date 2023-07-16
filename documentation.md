@@ -108,6 +108,8 @@ Similiar to a previous assignment, in a file called application.txt, paths to sp
 
 ### 1.3 Costum Gestures
 
+Another feature, which can be used by developers, is the ability to add custom gestures and integrate them into the Code. To do this, in the "Config.py" CREATION_MODE must be set to True. The variable NEW_CREATED_GESTURE_NAME describes the name of the resulting gesture. After setting the variables, the program can be started normally. Now, when button 3 is held, the developer can draw any gesture with the mouse. After closing the program, a line will be added to the "custom_templates.txt" file. That line then has to be copied into the one_dollar_gesture_templates-dictionary under "data/gesture_templates_dict.py". The gesture can then be integrated into the program.
+
 ### 2. Arrow-Key-Navigation 
 
 This feature allows the arrow keys (up, down, left, and right) to be operated using the mouse cursor. When Button 4 is pressed and held, the movement direction of the cursor corresponds to the respective arrow key.
@@ -128,7 +130,13 @@ This feature aims to accelerate the copy-paste process using the mouse by integr
 
 While the copy-paste process can also be performed without this feature by using Button 2 (controls the right mouse button) and selecting "Copy" and later "Paste", this feature is designed to expedite the process and provide added convenience.
 
-### 4. Virtuell Keyboard
+### 4. Virtual Keyboard
+
+This feature enables the user to perform text-Input using the mouse by displaying a virtual keyboard. This keyboard can also be hidden.
+
+**TOGGLE**: To toggle the visibility of the keyboard, the user can press button 3 and button 4 simulatniously. The mouse should not be moved while doing this, as it can lead to the program recognizing a gesture instead.
+
+**INPUT**: The keyboard can be used to perform text input, by simply hovering over the virtual keyboard with the mouse and pressing button 1 (left click) at the chosen button. The initial keyboard only displays lowercase letters, but pressing CapsLK will transform some of the buttons on the Keyboard to enable more input possibilities. It is also to note that this will not simulate an actual left click on the mouse, as it would shift the focus from the chosen text-field to the pyglet window.
 
 
 
